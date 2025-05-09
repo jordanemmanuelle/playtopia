@@ -7,3 +7,5 @@ PASSWORD ADMIN: 123
 COLOR CODE
 Ijo: #1C2C22
 Gold: #CBAE6D
+
+https://chatgpt.com/share/681d6d95-e6e4-8009-87e4-9c6bbd54da35
