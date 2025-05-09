@@ -17,7 +17,8 @@
     mysqli_stmt_bind_param($stmt, "sss", $email, $username, $hashed_password);
 
     if (mysqli_stmt_execute($stmt)) {
-        echo ("Daftar berhasil");
+        header("Location: FormLogin.html");
+        exit();
     } else {
         echo ("Error: " . mysqli_error($connect));
     }
