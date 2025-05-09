@@ -3,8 +3,8 @@ $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "
 CREATE TABLE playlists_songs (
-    id_playlist VARCHAR(10),
-    id_song VARCHAR(10),
+    id_playlist int,
+    id_song int,
     PRIMARY KEY (id_playlist, id_song),
     FOREIGN KEY (id_playlist) REFERENCES playlists(id_playlist),
     FOREIGN KEY (id_song) REFERENCES songs(id_song)

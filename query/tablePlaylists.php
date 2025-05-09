@@ -3,8 +3,8 @@ $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "
 CREATE TABLE playlists (
-    id_playlist VARCHAR(10) PRIMARY KEY,
-    id_user VARCHAR(10),
+    id_playlist int AUTO_INCREMENT PRIMARY KEY,
+    id_user int,
     playlist_name VARCHAR(100),
     description TEXT,
     cover_url TEXT,

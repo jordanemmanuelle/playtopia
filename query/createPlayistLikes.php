@@ -3,8 +3,8 @@ $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "
 CREATE TABLE playlist_likes (
-    id_user VARCHAR(10),
-    id_playlist VARCHAR(10),
+    id_user int,
+    id_playlist int,
     liked_at DATE NOT NULL DEFAULT CURRENT_DATE,
     PRIMARY KEY (id_user, id_playlist),
     FOREIGN KEY (id_user) REFERENCES users(id_user),

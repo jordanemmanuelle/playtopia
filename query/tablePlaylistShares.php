@@ -3,10 +3,10 @@ $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "
 CREATE TABLE playlist_shares (
-    id_shares VARCHAR(10) PRIMARY KEY,
-    id_sender VARCHAR(10),
-    id_receiver VARCHAR(10),
-    id_playlist VARCHAR(10),
+    id_shares int AUTO_INCREMENT PRIMARY KEY,
+    id_sender int,
+    id_receiver int,
+    id_playlist int,
     share_at DATE NOT NULL DEFAULT CURRENT_DATE,
     FOREIGN KEY (id_sender) REFERENCES users(id_user),
     FOREIGN KEY (id_receiver) REFERENCES users(id_user),

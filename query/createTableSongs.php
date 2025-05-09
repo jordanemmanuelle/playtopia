@@ -3,7 +3,7 @@ $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "
 CREATE TABLE songs (
-    id_song VARCHAR(10) PRIMARY KEY,
+    id_song int AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     artist VARCHAR(100) NOT NULL,
     album VARCHAR(100),
