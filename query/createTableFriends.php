@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
 $sql = "CREATE TABLE friends (
     id_user1 int not null,
     id_user2 int not null,
-    status ENUM('pending', 'accepted', 'declined') DEFAULT 'pending',
+    status ENUM('pending', 'accepted') DEFAULT 'pending',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_user1, id_user2),
     FOREIGN KEY (id_user1) REFERENCES users(id_user),
