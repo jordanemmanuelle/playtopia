@@ -1,14 +1,32 @@
-<html>
-    <form action="ProsesRegister.php" method="post">
-        <label for="email"> Email </label>  
-        <input type="email" name="email" id="email" required> <br>
+<link rel="stylesheet" href="Style/CSSRegister.css">
+<head>
+    <title> Register - Playtopia </title>
+</head>
+<body>
+    <form class="form" action="ProsesRegister.php" method="post">
+        <p class="title"> Register</p>
+        <p class="message"> Sign up npw and get full access to our website. </p>
 
-        <label for="username"> Username </label>  
-        <input type="text" name="username" id="username" required> <br>
-        
-        <label for="password"> Password </label>  
-        <input type="password" name="password" id="password" required> <br>
+        <label>
+            <span> Email </span>
+            <input class="input" type="email" name="email" placeholder="" required>
+        </label>
 
-        <input type="submit" value="Register">
+        <label>
+            <span> Username </span>
+            <input class="input" type="text" name="username" placeholder="" required>
+        </label>
+
+        <label>
+            <span> Password </span>
+            <input class="input" type="password" placeholder="" required>
+        </label>
+
+        <button class="submit"> Register </button>
+        <p class="signin"> Already have an account? <a href="FormLogin.html"> Sign in</a></p>
     </form>
-</html>
+</body>
+
+
+
+
