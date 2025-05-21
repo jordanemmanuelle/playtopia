@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +26,12 @@
             <a href="#"><b>Home</b></a>
             <a href="#"><b>Search</b></a>
             <a href="#"><b>Your Library</b></a>
+            <?php if (isset($_SESSION['id_user'])): ?>
+            <a href="../LoginRegister/Logout.php"><b> Logout </b></a>
+        <?php else: ?>
+            <a href="../LoginRegister/FormRegister.html"><b>Register</b></a>
+            <a href="../LoginRegister/FormLogin.html"><b>Login</b></a>
+        <?php endif; ?>
         </nav>
     </header>
 </body>

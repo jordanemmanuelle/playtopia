@@ -1,10 +1,11 @@
-<link rel="stylesheet" href="Style/CSSLogin.css">
+<link rel="stylesheet" href="../CSS/CSSLogin.css">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login - Playtopia</title>
 </head>
+
 <body>
     <form class="form" action="ProsesLogin.php" method="post">
         <p class="title">Login</p>
@@ -20,8 +21,32 @@
             <input class="input" type="password" name="password" placeholder="" required>
         </label>
 
+        <div class="forgot-password">
+            <a href="FormForgotPassword.html"> Forgot Password? </a> 
+        </div>
+
         <button class="submit">Login</button>
         <p class="signin">Don't have an account? <a href="FormRegister.html">Register</a></p>
     </form>
+
+    <style>
+        .forgot-password {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #cbae6d;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+    color: #cbae6d;
+}
+    </style>
 </body>
 </html>

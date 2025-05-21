@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-$connect = mysqli_connect("localhost", "root", "", "playtopia");
-
-if (mysqli_connect_errno()) {
-    echo (mysqli_connect_error());
-}
+include '../connection.php';
 
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -23,6 +19,10 @@ if (mysqli_num_rows($result) === 1) {
     header("Location: ../Pages/Home.php");
     exit();
 } else {
-    echo ("<script>alert('Email atau password salah!'); window.location.href='FormLogin.html';</script>");
+    echo ("<script>
+    alert('Email atau password salah!'); 
+    window.location.href='FormLogin.html';
+    </script>
+    ");
 }
 ?>

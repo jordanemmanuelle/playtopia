@@ -86,6 +86,7 @@ label span {
     text-decoration: underline;
 }
 
+
 /* Responsive tweaks */
 @media (max-width: 480px) {
     .form {
@@ -100,3 +101,4 @@ label span {
         font-size: 15px;
     }
 }
+

@@ -1,28 +1,29 @@
 <?php
-    include "FormRegister.html";
+include '../connection.php';
 
-    $connect = mysqli_connect("localhost", "root", "", "playtopia");
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['email'], $_POST['username'], $_POST['password'])) {
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $hashed_password = md5($password); 
 
-    if (mysqli_connect_errno()) {
-        echo (mysqli_connect_error());
-    }
+        $sql = "INSERT INTO users (email, username, password)
+                VALUES ('$email', '$username', '$hashed_password')";
 
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $hashed_password = md5($password);
-
-    $sql = "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
-    $stmt = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $email, $username, $hashed_password);
-
-    if (mysqli_stmt_execute($stmt)) {
-        echo ("Daftar berhasil");
+        if (mysqli_query($connect, $sql)) {
+            echo ("<script>
+                alert('Registrasi Berhasil!');
+                window.location.href='FormLogin.html';
+            </script>");
+        } else {
+            echo ("<script>
+                alert('Registrasi Gagal!');
+                window.location.href='FormRegister.html';
+            </script>");
+        }
     } else {
-        echo ("Error: " . mysqli_error($connect));
+        echo ("Isi semua data!");
     }
-
-    mysqli_stmt_close($stmt);
-    mysqli_close($connect);
-    
+}
 ?>
