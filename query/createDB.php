@@ -8,7 +8,7 @@
     if (mysqli_query($connect, $sql)) {
         echo ("Database created successfully");
     } else {
-        echo ("Error creating database: " + mysqli_error($connect));
+        echo ("Error creating database: " . mysqli_error($connect));
     }
     mysqli_close($connect);
 ?>

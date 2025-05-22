@@ -126,3 +126,143 @@ body {
         margin-bottom: 10px;
     }
 }
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 250px;
+    height: 100%;
+    background-color: #121212;
+    color: white;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+/* End of Sidebar */
+
+/* Main Content */
+.main-content {
+    padding: 40px 20px;
+    background-color: #181818;
+    color: white;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 1.2em;
+    color: #b3b3b3;
+}
+
+/* Section Card (Kotak) */
+.content-box {
+    background-color: #202020;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.content-box h2 {
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    color: #ffffff;
+}
+
+
+.card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 12px;
+    width: 150px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.card:hover {
+    background-color: #3a3a3a;
+    cursor: pointer;
+}
+
+.card {
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 12px;
+    width: 150px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.card .title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card .artist {
+    font-size: 0.9em;
+    color: #b3b3b3;
+}
+
+
+/* End of main content */
+
+.footer {
+    background-color: #121212;
+    text-align: center;
+    color: #aaa;
+    padding: 20px;
+}
