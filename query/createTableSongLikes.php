@@ -1,8 +1,7 @@
 <?php
 $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
-$sql = "
-CREATE TABLE song_likes (
+$sql = "CREATE TABLE song_likes (
     id_user INT,
     id_song INT,
     liked_at DATE NOT NULL DEFAULT CURRENT_DATE,

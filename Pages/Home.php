@@ -71,19 +71,25 @@
             <h2>🎵 Recommended for You</h2>
             <div class="card-container">
                 <div class="card">
-                    <img src="../image/album1.jpg" alt="Album 1">
-                    <p class="title">Midnight Memories</p>
-                    <p class="artist">One Direction</p>
+                    <img src="../Assets/image/album1.jpg" alt="Album 1">
+                    <p class="title">SOS</p>
+                    <p class="artist">SZA</p>
                 </div>
                 <div class="card">
-                    <img src="../image/album2.jpg" alt="Album 2">
-                    <p class="title">Divide</p>
+                    <img src="../Assets/image/album2.webp" alt="Album 2">
+                    <p class="title">Voicenotes</p>
+                    <p class="artist">Charlie Puth</p>
+                </div>
+                <div class="card">
+                    <img src="../Assets/image/album3.avif" alt="Album 3">
+                    <p class="title">Devide</p>
                     <p class="artist">Ed Sheeran</p>
                 </div>
+
                 <div class="card">
-                    <img src="../image/album3.jpg" alt="Album 3">
-                    <p class="title">Future Nostalgia</p>
-                    <p class="artist">Dua Lipa</p>
+                    <img src="../Assets/image/album4.jpg" alt="Album 4">
+                    <p class="title">Justice</p>
+                    <p class="artist">Justin Bieber</p>
                 </div>
             </div>
         </section>
@@ -93,19 +99,25 @@
             <h2>🔥 Top Charts</h2>
             <div class="card-container">
                 <div class="card">
-                    <img src="../image/album4.jpg" alt="Album 4">
-                    <p class="title">After Hours</p>
-                    <p class="artist">The Weeknd</p>
+                    <img src="../Assets/image/cover1.png" alt="Album 4">
+                    <p class="title">You're Mine</p>
+                    <p class="artist">Vincentius Bryan</p>
                 </div>
                 <div class="card">
-                    <img src="../image/album5.jpg" alt="Album 5">
-                    <p class="title">Folklore</p>
-                    <p class="artist">Taylor Swift</p>
+                    <img src="../Admin/uploads/covers/cover2.png" alt="Album 5">
+                    <p class="title">Attention</p>
+                    <p class="artist">Charlie Puth</p>
                 </div>
                 <div class="card">
-                    <img src="../image/album6.jpg" alt="Album 6">
-                    <p class="title">Justice</p>
-                    <p class="artist">Justin Bieber</p>
+                    <img src="../Admin/uploads/covers/cover3.jpg" alt="Album 6">
+                    <p class="title">APT</p>
+                    <p class="artist">ROSÉ & Bruno Mars</p>
+                </div>
+
+                <div class="card">
+                    <img src="../Admin/uploads/covers/cover4.jpg" alt="Album 6">
+                    <p class="title">BIRDS OF A FEATHER</p>
+                    <p class="artist">Billie Eilish</p>
                 </div>
             </div>
         </section>
@@ -115,15 +127,15 @@
             <h2>🎧 Genres</h2>
             <div class="card-container">
                 <div class="card">
-                    <img src="../image/genre-pop.jpg" alt="Pop">
+                    <img src="../Assets/image/genre-pop.jpg" alt="Pop">
                     <p class="title">Pop</p>
                 </div>
                 <div class="card">
-                    <img src="../image/genre-rock.jpg" alt="Rock">
+                    <img src="../Assets/image/genre-rock.jpg" alt="Rock">
                     <p class="title">Rock</p>
                 </div>
                     <div class="card">
-                    <img src="../image/genre-hiphop.jpg" alt="Hip-Hop">
+                    <img src="../Assets/image/genre-hiphop.jpg" alt="Hip-Hop">
                     <p class="title">Hip-Hop</p>
                 </div>
             </div>

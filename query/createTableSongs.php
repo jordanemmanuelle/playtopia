@@ -1,8 +1,7 @@
 <?php
 $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
-$sql = "
-CREATE TABLE songs (
+$sql = "CREATE TABLE songs (
     id_song int AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     artist VARCHAR(100) NOT NULL,
@@ -10,7 +9,8 @@ CREATE TABLE songs (
     genre VARCHAR(50),
     release_year YEAR,
     duration INT,
-    file_path TEXT
+    file_path TEXT,
+    cover_path TEXT
 )";
 
 if (mysqli_query($connect, $sql)) {
