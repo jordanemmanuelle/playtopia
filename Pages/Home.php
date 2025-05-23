@@ -142,15 +142,15 @@
             <h2>🎧 Genres</h2>
             <div class="card-container">
                 <div class="card">
-                    <img src="../Assets/image/genre-pop.jpg" alt="Pop">
+                    <img src="../Assets/image/pop.jpg" alt="Pop">
                     <p class="title">Pop</p>
                 </div>
                 <div class="card">
-                    <img src="../Assets/image/genre-rock.jpg" alt="Rock">
+                    <img src="../Assets/image/rock.jpg" alt="Rock">
                     <p class="title">Rock</p>
                 </div>
                     <div class="card">
-                    <img src="../Assets/image/genre-hiphop.jpg" alt="Hip-Hop">
+                    <img src="../Assets/image/hiphop.jpg" alt="Hip-Hop">
                     <p class="title">Hip-Hop</p>
                 </div>
             </div>
