@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h1>Insert Song</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+        <link rel="stylesheet" href="../CSS/InsertSong.css">
+        <div class="form-container">
+            <div class="form-header">
+            <a href="../Pages/AdminMenu.php" class="back-button">Back</a>
+            <h1>Insert Song</h1>
+        </div>
+            <form action="" method="post" enctype="multipart/form-data">
+            
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title" required><br><br>
 
@@ -11,26 +17,27 @@
 
             <label for="album">Album:</label><br>
             <input type="text" id="album" name="album"><br><br>
-
+            
             <label for="genre">Genre:</label><br>
             <input type="text" id="genre" name="genre"><br><br>
 
             <label for="release_year">Release Year:</label><br>
             <input type="number" id="release_year" name="release_year" min="1900" max="2099"><br><br>
-
+            
             <label for="duration">Duration (seconds):</label><br>
             <input type="number" id="duration" name="duration" min="0"><br><br>
-
+            
             <label for="file_path">Song File:</label><br>
             <input type="file" id="file_path" name="file_path" accept="audio/*" required><br><br>
-
+            
             <label for="cover_path">Cover Image:</label><br>
             <input type="file" id="cover_path" name="cover_path" accept="image/*"><br><br>
-
-
+            
+            
             <input type="submit" value="Insert Song">
         </form>
-
+    </div>
+        
         <?php
             include '../connection.php';
 
@@ -63,7 +70,7 @@
                             $coverTemp = $_FILES["cover_path"]["tmp_name"];
                             $coverPathFile = $coverFolder . $coverName;
                             if (move_uploaded_file($coverTemp, $coverPathFile)) {
-                                $coverPath = "'$coverPathFile'";
+                                $coverPath = "'../Admin/uploads/covers/$coverName'";
                             }
                         }           
 

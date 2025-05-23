@@ -2,13 +2,13 @@
 $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "CREATE TABLE playlists (
-    id_playlist int AUTO_INCREMENT PRIMARY KEY,
-    id_user int,
-    playlist_name VARCHAR(100),
+    id_playlist INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    playlist_name VARCHAR(100) NOT NULL,
     description TEXT,
-    cover_url TEXT,
-    created_at DATE NOT NULL,
-    FOREIGN KEY (id_user) REFERENCES users(id_user)
+    cover_url VARCHAR(255),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE
 )";
 
 if (mysqli_query($connect, $sql)) {

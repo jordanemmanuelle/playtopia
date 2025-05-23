@@ -1,6 +1,11 @@
 <?php
     session_start();
+    include '../connection.php';
+
+    $songQuery = "SELECT * FROM songs LIMIT 4"; // max 4 utk di home
+    $songResult = mysqli_query($connect, $songQuery);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +28,7 @@
                 <button class="close-btn">&times;</button>
             </div>
             <ul>
+                <li><a href="../Pages/Playlist.php">Playlist</a></li>
                 <li><a href="#">Liked Songs</a></li>
                 <li><a href="#">Recently Played</a></li>
                 <li><a href="#">Albums</a></li>
@@ -45,7 +51,7 @@
         </script>
 
         <div class="logo">
-            <img src="../image/LogoPlaytopia1.png">
+            <img src="../Assets/image/LogoPlaytopia1.png">
         </div>
 
         <nav class="nav-links">
@@ -63,36 +69,45 @@
     <main class="main-content">
         <section class="hero">
             <h1>Welcome to Playtopia</h1>
-            <p>Your personalized music experience starts here.</p>
+            <p class="tagline"> Your Personal Music Playground </p>
+
+           <?php 
+    if (isset($_SESSION['username'])) {
+        date_default_timezone_set('Asia/Jakarta'); // Adjust to your timezone
+        $hour = date('H');
+        $username = htmlspecialchars($_SESSION['username']);
+
+        if ($hour >= 5 && $hour < 12) {
+            // $greeting = "Morning, $username! Ready to start your day? ";
+        } elseif ($hour >= 12 && $hour < 17) {
+            $greeting = "Hey $username, need a soundtrack for your afternoon?";
+        } elseif ($hour >= 17 && $hour < 21) {
+            $greeting = "Evening, $username! How was your day?";
+        } else {
+            $greeting = "Still up, $username? Let the music keep you company tonight";
+        }
+
+        echo "<p class='welcome-user'>$greeting</p>";
+    }
+?>
+
+
         </section>
 
         <!-- Recommended -->
         <section class="content-box">
             <h2>🎵 Recommended for You</h2>
             <div class="card-container">
+                <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
                 <div class="card">
-                    <img src="../Assets/image/album1.jpg" alt="Album 1">
-                    <p class="title">SOS</p>
-                    <p class="artist">SZA</p>
+                    <img src="<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+                    <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
+                    <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
                 </div>
-                <div class="card">
-                    <img src="../Assets/image/album2.webp" alt="Album 2">
-                    <p class="title">Voicenotes</p>
-                    <p class="artist">Charlie Puth</p>
-                </div>
-                <div class="card">
-                    <img src="../Assets/image/album3.avif" alt="Album 3">
-                    <p class="title">Devide</p>
-                    <p class="artist">Ed Sheeran</p>
-                </div>
+        <?php endwhile; ?>
+    </div>
+</section>
 
-                <div class="card">
-                    <img src="../Assets/image/album4.jpg" alt="Album 4">
-                    <p class="title">Justice</p>
-                    <p class="artist">Justin Bieber</p>
-                </div>
-            </div>
-        </section>
 
         <!-- Top Charts -->
         <section class="content-box">

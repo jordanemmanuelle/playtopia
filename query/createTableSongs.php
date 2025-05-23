@@ -2,15 +2,15 @@
 $connect = mysqli_connect("localhost", "root", "", "playtopia");
 
 $sql = "CREATE TABLE songs (
-    id_song int AUTO_INCREMENT PRIMARY KEY,
+    id_song INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     artist VARCHAR(100) NOT NULL,
     album VARCHAR(100),
     genre VARCHAR(50),
     release_year YEAR,
     duration INT,
-    file_path TEXT,
-    cover_path TEXT
+    file_path VARCHAR(255),
+    cover_path VARCHAR(255)
 )";
 
 if (mysqli_query($connect, $sql)) {
