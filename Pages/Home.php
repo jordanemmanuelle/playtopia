@@ -92,23 +92,34 @@
         echo "<p class='welcome-user'>$greeting</p>";
     }
 ?>
-
-
         </section>
+        
+       <section class="content-box">
+    <h2>🎵 Recommended for You</h2>
+    <div class="card-container">
+        <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
+        <div class="card">
+            <img src="../Assets/image/<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+            <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
+            <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
 
-        <!-- Recommended -->
-        <section class="content-box">
-            <h2>🎵 Recommended for You</h2>
-            <div class="card-container">
-                <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
-                <div class="card">
-                    <img src="<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
-                    <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
-                    <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
-                </div>
-                <?php endwhile; ?>
-            </div>
-        </section>
+            <!-- Audio player (disembunyikan) -->
+            <audio class="audio-player" src="../Admin/<?php echo htmlspecialchars($row['file_path']); ?>" preload="none"></audio>
+
+            <!-- Tombol play/pause -->
+            <button class="play-pause-btn">Play</button>
+
+             <!-- Progress Bar -->
+            <input type="range" class="progress-bar" value="0" min="0" step="1">
+
+            <!-- Volume Control -->
+            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.5" title="Volume">
+        </div>
+
+        <?php endwhile; ?>
+    </div>
+</section>
+
 
 
         <!-- Top Charts -->
@@ -162,6 +173,82 @@
     <footer class="footer">
         <p>&copy; 2025 Playtopia. All rights reserved.</p>
     </footer>
+
+    <script>
+const cards = document.querySelectorAll('.card');
+
+let currentlyPlayingAudio = null;
+let currentlyPlayingBtn = null;
+
+cards.forEach((card, index) => {
+    const audio = card.querySelector('.audio-player');
+    const btn = card.querySelector('.play-pause-btn');
+    const progressBar = card.querySelector('.progress-bar');
+    const volumeSlider = card.querySelector('.volume-slider');
+
+    // Set max progress bar setelah metadata loaded
+    audio.addEventListener('loadedmetadata', () => {
+        progressBar.max = Math.floor(audio.duration);
+    });
+
+    // Play/pause toggle
+    btn.addEventListener('click', () => {
+        if (audio.paused) {
+            // Pause audio lain yang sedang dimainkan
+            if (currentlyPlayingAudio && currentlyPlayingAudio !== audio) {
+                currentlyPlayingAudio.pause();
+                if (currentlyPlayingBtn) currentlyPlayingBtn.textContent = 'Play';
+            }
+            audio.play();
+            btn.textContent = 'Pause';
+            currentlyPlayingAudio = audio;
+            currentlyPlayingBtn = btn;
+        } else {
+            audio.pause();
+            btn.textContent = 'Play';
+            currentlyPlayingAudio = null;
+            currentlyPlayingBtn = null;
+        }
+    });
+
+    // Update progress bar saat audio berjalan
+    audio.addEventListener('timeupdate', () => {
+        progressBar.value = Math.floor(audio.currentTime);
+    });
+
+    // Mengatur audio saat progress bar digeser
+    progressBar.addEventListener('input', () => {
+        audio.currentTime = progressBar.value;
+    });
+
+    // Atur volume berdasarkan slider
+    volumeSlider.addEventListener('input', () => {
+        audio.volume = volumeSlider.value;
+    });
+
+    // Saat lagu selesai, mainkan lagu selanjutnya
+    audio.addEventListener('ended', () => {
+        btn.textContent = 'Play';
+        currentlyPlayingAudio = null;
+        currentlyPlayingBtn = null;
+
+        // Mainkan lagu berikutnya, jika ada
+        const nextIndex = index + 1;
+        if (nextIndex < cards.length) {
+            const nextCard = cards[nextIndex];
+            const nextAudio = nextCard.querySelector('.audio-player');
+            const nextBtn = nextCard.querySelector('.play-pause-btn');
+
+            nextAudio.play();
+            nextBtn.textContent = 'Pause';
+
+            currentlyPlayingAudio = nextAudio;
+            currentlyPlayingBtn = nextBtn;
+        }
+    });
+});
+</script>
+
 
 </body>
 </html>

@@ -62,7 +62,7 @@
                 if (isset($_FILES["file_path"]) && $_FILES["file_path"]["error"] == 0) {
                     $fileName = basename($_FILES["file_path"]["name"]);
                     $tempName = $_FILES["file_path"]["tmp_name"];
-                    $filePath = $audioFolder . $fileName;
+                    $filePath = '../Assets/song/' . $fileName;
 
                     if (move_uploaded_file($tempName, $filePath)) {
                         $filePath = '../Assets/song/' . $fileName; // for DB path
@@ -80,7 +80,7 @@
                         $duration = !empty($duration) ? $duration : "NULL";
 
                         $query = "INSERT INTO songs (title, artist, album, genre, release_year, duration, file_path, cover_path)
-                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$fileName', '$coverName')";
+                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$filePath', '$coverName')";
 
                         if (mysqli_query($connect, $query)) {
                             echo "<script>alert('Lagu berhasil dimasukkan!');</script>";

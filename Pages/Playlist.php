@@ -69,6 +69,8 @@ if ($playlistId) {
             <li><a href="#">Recently Played</a></li>
             <li><a href="#">Albums</a></li>
             <li><a href="#">Artists</a></li>
+            <li><a href="Profile.php">Profile</a></li>
+            <li><a href="Friends.php">Friends</a></li>
         </ul>
     </div>
 
