@@ -100,7 +100,7 @@
             <div class="card-container">
                 <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
                 <div class="card">
-                    <img src="<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+                    <img src="../Assets/image/<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
                     <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
                     <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
                 </div>
