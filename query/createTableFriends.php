@@ -15,6 +15,7 @@ $sql = "CREATE TABLE friends (
     FOREIGN KEY (id_user2) REFERENCES users(id_user)
 )";
 
+
 if (mysqli_query($connect, $sql)) {
     echo ("Table 'friends' created successfully");
 } else {

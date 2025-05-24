@@ -33,6 +33,8 @@
                 <li><a href="#">Recently Played</a></li>
                 <li><a href="#">Albums</a></li>
                 <li><a href="#">Artists</a></li>
+                <li><a href="Profile.php">Profile</a></li>
+                <li><a href="Friends.php">Friends</a></li>
             </ul>
         </div>
 
@@ -100,13 +102,13 @@
             <div class="card-container">
                 <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
                 <div class="card">
-                    <img src="../Assets/image/<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+                    <img src="<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
                     <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
                     <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
                 </div>
-        <?php endwhile; ?>
-    </div>
-</section>
+                <?php endwhile; ?>
+            </div>
+        </section>
 
 
         <!-- Top Charts -->
