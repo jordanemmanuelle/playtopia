@@ -55,8 +55,8 @@
         </div>
 
         <nav class="nav-links">
-            <a href="#"><b>Home</b></a>
-            <a href="#"><b>Search</b></a>
+            <a href="Home.php"><b>Home</b></a>
+            <a href="Search.php"><b>Search</b></a>
             <?php if (isset($_SESSION['id_user'])): ?>
                 <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
             <?php else: ?>
