@@ -49,36 +49,38 @@
                 $release_year = $_POST["release_year"];
                 $duration = $_POST["duration"];
 
-                $folder = "uploads/";
-                if (!is_dir($folder)) {
-                    mkdir($folder, 0777, true);
+                $audioFolder = "../Assets/song/";
+                $imageFolder = "../Assets/image/";
+
+                if (!is_dir($audioFolder)) {
+                    mkdir($audioFolder, 0777, true);
+                }
+                if (!is_dir($imageFolder)) {
+                    mkdir($imageFolder, 0777, true);
                 }
 
                 if (isset($_FILES["file_path"]) && $_FILES["file_path"]["error"] == 0) {
                     $fileName = basename($_FILES["file_path"]["name"]);
                     $tempName = $_FILES["file_path"]["tmp_name"];
-                    $filePath = $folder . $fileName;
+                    $filePath = $audioFolder . $fileName;
 
                     if (move_uploaded_file($tempName, $filePath)) {
+                        $filePath = '../Assets/song/' . $fileName; // for DB path
                         $coverPath = "NULL";
                         if (isset($_FILES["cover_path"]) && $_FILES["cover_path"]["error"] == 0) {
-                            $coverFolder = $folder . "covers/";
-                            if (!is_dir($coverFolder)) {
-                                mkdir($coverFolder, 0777, true);
-                            }
                             $coverName = basename($_FILES["cover_path"]["name"]);
                             $coverTemp = $_FILES["cover_path"]["tmp_name"];
-                            $coverPathFile = $coverFolder . $coverName;
+                            $coverPathFile = $imageFolder . $coverName;
                             if (move_uploaded_file($coverTemp, $coverPathFile)) {
-                                $coverPath = "'../Admin/uploads/covers/$coverName'";
+                                $coverPath = "'../Assets/image/$coverName'";
                             }
-                        }           
+                        }
 
                         $release_year = !empty($release_year) ? $release_year : "NULL";
                         $duration = !empty($duration) ? $duration : "NULL";
 
                         $query = "INSERT INTO songs (title, artist, album, genre, release_year, duration, file_path, cover_path)
-                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$filePath', $coverPath)";
+                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$fileName', '$coverName')";
 
                         if (mysqli_query($connect, $query)) {
                             echo "<script>alert('Lagu berhasil dimasukkan!');</script>";
