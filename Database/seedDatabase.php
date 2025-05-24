@@ -9,7 +9,7 @@ $songs = [
         'artist' => 'Alan Walker',
         'genre' => 'Electro house',
         'release_year' => 2016,
-        'duration' => '2:44',
+        'duration' => 164,
         'file_path' => 'Alan_Walker_-_Alone.mp3',
         'cover_path' => 'Alan_Walker_-_Alone.jpg'
     ],
@@ -18,7 +18,7 @@ $songs = [
         'artist' => 'Alan Walker & Ava Max',
         'genre' => 'Moombahton',
         'release_year' => 2019,
-        'duration' => '2:59',
+        'duration' => 179,
         'file_path' => 'Alan_Walker_Ava_Max_-_Alone_Pt_II.mp3',
         'cover_path' => 'Alan_Walker_Ava_Max_-_Alone_Pt_II.jpg'
     ],
@@ -27,7 +27,7 @@ $songs = [
         'artist' => 'Alan Walker',
         'genre' => 'Electro house',
         'release_year' => 2015,
-        'duration' => '3:32',
+        'duration' => 212,
         'file_path' => 'Alan_Walker_-_Faded.mp3',
         'cover_path' => 'Alan_Walker_-_Faded.jpg'
     ],
@@ -36,7 +36,7 @@ $songs = [
         'artist' => 'Alan Walker',
         'genre' => 'Electro house',
         'release_year' => 2017,
-        'duration' => '3:13',
+        'duration' => 193,
         'file_path' => 'Alan_Walker_-_The_Spectre.mp3',
         'cover_path' => 'Alan_Walker_-_The_Spectre.jpg'
     ],
@@ -45,7 +45,7 @@ $songs = [
         'artist' => 'Alan Walker, K-391, Tungevaag, Mangoo',
         'genre' => 'Electro house',
         'release_year' => 2019,
-        'duration' => '2:47',
+        'duration' => 167,
         'file_path' => 'Alan_Walker_K391_Tungevaag_Mangoo_-_PLAY_Remix.mp3',
         'cover_path' => 'Alan_Walker_K391_Tungevaag_Mangoo_-_PLAY_Remix.jpg'
     ],
@@ -54,7 +54,7 @@ $songs = [
         'artist' => 'Alan Walker, Sabrina Carpenter & Farruko',
         'genre' => 'Moombahton',
         'release_year' => 2019,
-        'duration' => '3:13',
+        'duration' => 193,
         'file_path' => 'Alan_Walker_Sabrina_Carpenter_Farruko_-_On_My_Way.mp3',
         'cover_path' => 'Alan_Walker_Sabrina_Carpenter_Farruko_-_On_My_Way.jpg'
     ],
@@ -63,7 +63,7 @@ $songs = [
         'artist' => 'Ava Max',
         'genre' => 'Electropop',
         'release_year' => 2019,
-        'duration' => '3:03',
+        'duration' => 183,
         'file_path' => 'Ava_Max_-_So_Am_I.mp3',
         'cover_path' => 'Ava_Max_-_So_Am_I.jpg'
     ],
@@ -72,7 +72,7 @@ $songs = [
         'artist' => 'Backstreet Boys',
         'genre' => 'Pop',
         'release_year' => 1999,
-        'duration' => '3:33',
+        'duration' => 213,
         'file_path' => 'Backstreet_Boys_-_I_Want_It_That_Way.mp3',
         'cover_path' => 'Backstreet_Boys_-_I_Want_It_That_Way.jpg'
     ],
@@ -81,7 +81,7 @@ $songs = [
         'artist' => 'Charlie Puth feat. Kehlani',
         'genre' => 'Contemporary R&B',
         'release_year' => 2018,
-        'duration' => '3:00',
+        'duration' => 180,
         'file_path' => 'Charlie_Puth_feat_Kehlani_-_Done_For_Me.mp3',
         'cover_path' => 'Charlie_Puth_feat_Kehlani_-_Done_For_Me.jpg'
     ],
@@ -90,7 +90,7 @@ $songs = [
         'artist' => 'Charlie Puth',
         'genre' => 'Pop-funk',
         'release_year' => 2017,
-        'duration' => '3:18',
+        'duration' => 198,
         'file_path' => 'Charlie_Puth_-_How_Long.mp3',
         'cover_path' => 'Charlie_Puth_-_How_Long.jpg'
     ],
@@ -99,7 +99,7 @@ $songs = [
         'artist' => 'Kehlani & G-Eazy',
         'genre' => 'Pop-rap',
         'release_year' => 2017,
-        'duration' => '3:45',
+        'duration' => 225,
         'file_path' => 'Kehlani_G_Eazy_-_Good_Life.mp3',
         'cover_path' => 'Kehlani_G_Eazy_-_Good_Life.jpg'
     ],
@@ -108,11 +108,12 @@ $songs = [
         'artist' => 'Shawn Mendes',
         'genre' => 'Pop',
         'release_year' => 2014,
-        'duration' => '3:00',
+        'duration' => 180,
         'file_path' => 'Shawn_Mendes_-_Show_You.mp3',
         'cover_path' => 'Shawn_Mendes_-_Show_You.jpg'
     ]
 ];
+
 
 $stmt = $connect->prepare("INSERT INTO songs (title, artist, genre, release_year, duration, file_path, cover_path) VALUES (?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssissss", $title, $artist, $genre, $release_year, $duration, $file_path, $cover_path);
