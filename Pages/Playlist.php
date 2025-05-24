@@ -22,11 +22,60 @@ if ($result && mysqli_num_rows($result) > 0) {
   <link rel="stylesheet" href="../CSS/Playlist.css">
 </head>
 <body>
-  <div class="main-content">
-    <a href="Home.php" class="btn-back-home" style="display: inline-block; margin-bottom: 15px; text-decoration: none; color: #fff; background-color: #007bff; padding: 8px 15px; border-radius: 5px;">← Back to Home</a>
+<header class="playtopia-header">
+    <button class="setting-btn">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar1"></span>
+    </button>
 
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Library</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <ul>
+            <li><a href="../Pages/Playlist.php">Playlist</a></li>
+            <li><a href="#">Liked Songs</a></li>
+            <li><a href="#">Recently Played</a></li>
+            <li><a href="#">Albums</a></li>
+            <li><a href="#">Artists</a></li>
+        </ul>
+    </div>
+
+    <script>
+        const settingBtn = document.querySelector('.setting-btn');
+        const sidebar = document.getElementById('sidebar');
+        const closeBtn = document.querySelector('.close-btn');
+
+        settingBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+    </script>
+
+    <div class="logo">
+        <img src="../Assets/image/LogoPlaytopia1.png" alt="Logo">
+    </div>
+
+    <nav class="nav-links">
+        <a href="Home.php"><b>Home</b></a>
+        <a href="Search.php"><b>Search</b></a>
+        <?php if (isset($_SESSION['id_user'])): ?>
+            <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
+        <?php else: ?>
+            <a href="../LoginRegister/FormRegister.html"><b>Register</b></a>
+            <a href="../LoginRegister/FormLogin.html"><b>Login</b></a>
+        <?php endif; ?>
+    </nav>
+</header>
+
+<main class="main-content">
     <h2>🎧 Your Playlists</h2>
-    
+
     <div class="action-bar">
       <a href="CreatePlaylist.php" class="add-btn">➕ Add New Playlist</a>
     </div>
@@ -49,6 +98,10 @@ if ($result && mysqli_num_rows($result) > 0) {
         <?php endforeach; ?>
       </div>
     <?php endif; ?>
-  </div>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 Playtopia. All rights reserved.</p>
+</footer>
 </body>
 </html>

@@ -4,6 +4,16 @@ include '../connection.php';
 
 $userId = $_SESSION['id_user'];
 
+$createTableQuery = "CREATE TABLE IF NOT EXISTS playlists_songs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_playlist INT NOT NULL,
+    id_song INT NOT NULL,
+    FOREIGN KEY (id_playlist) REFERENCES playlists(id_playlist) ON DELETE CASCADE,
+    FOREIGN KEY (id_song) REFERENCES songs(id_song) ON DELETE CASCADE
+)";
+
+mysqli_query($connect, $createTableQuery);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $playlistName = $_POST['playlist_name'];
     $description = $_POST['description'];
