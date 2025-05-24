@@ -219,9 +219,17 @@ body {
     padding: 15px;
     border-radius: 12px;
     width: 320px;
+    aspect-ratio: 1 / 1;
+    height: 320px;
+    width: 320px;
     text-align: center;
     color: white;
     transition: background-color 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 20px;
 }
 
 .card:hover {
@@ -231,8 +239,12 @@ body {
 
 .card img {
     width: 100%;
-    border-radius: 10px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    border-radius: 16px;
     margin-bottom: 10px;
+    object-fit: cover;
+    overflow: hidden;
 }
 
 .card .title {

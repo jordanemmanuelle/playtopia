@@ -120,6 +120,19 @@
     </div>
 </section>
 
+        <!-- Recommended -->
+        <section class="content-box">
+            <h2>🎵 Recommended for You</h2>
+            <div class="card-container">
+                <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
+                <div class="card">
+                    <img src="../Assets/image/<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+                    <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
+                    <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
+                </div>
+                <?php endwhile; ?>
+            </div>
+        </section>
 
 
         <!-- Top Charts -->
