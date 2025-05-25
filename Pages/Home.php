@@ -12,12 +12,14 @@ if (!$songResult) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>PLAYTOPIA</title>
     <link rel="stylesheet" href="../CSS/homeCSS.css">
 </head>
+
 <body>
     <header class="playtopia-header">
         <button class="setting-btn">
@@ -77,27 +79,27 @@ if (!$songResult) {
             <h1>Welcome to Playtopia</h1>
             <p class="tagline"> Your Personal Music Playground </p>
 
-           <?php 
-                if (isset($_SESSION['username'])) {
-                    date_default_timezone_set('Asia/Jakarta'); 
-                    $hour = date('H');
-                    $username = htmlspecialchars($_SESSION['username']);
+            <?php
+            if (isset($_SESSION['username'])) {
+                date_default_timezone_set('Asia/Jakarta');
+                $hour = date('H');
+                $username = htmlspecialchars($_SESSION['username']);
 
-                    if ($hour >= 5 && $hour < 12) {
-                        $greeting = "Morning, $username! Ready to start your day?";
-                    } elseif ($hour >= 12 && $hour < 17) {
-                        $greeting = "Hey $username, need a soundtrack for your afternoon?";
-                    } elseif ($hour >= 17 && $hour < 21) {
-                        $greeting = "Evening, $username! How was your day?";
-                    } else {
-                        $greeting = "Still up, $username? Let the music keep you company tonight";
-                    }
-                    echo "<p class='welcome-user'>$greeting</p>";
+                if ($hour >= 5 && $hour < 12) {
+                    $greeting = "Morning, $username! Ready to start your day?";
+                } elseif ($hour >= 12 && $hour < 17) {
+                    $greeting = "Hey $username, need a soundtrack for your afternoon?";
+                } elseif ($hour >= 17 && $hour < 21) {
+                    $greeting = "Evening, $username! How was your day?";
+                } else {
+                    $greeting = "Still up, $username? Let the music keep you company tonight";
                 }
+                echo "<p class='welcome-user'>$greeting</p>";
+            }
             ?>
         </section>
-        
-       <section class="content-box">
+
+        <section class="content-box">
             <h2>🎵 Recommended for You</h2>
             <div class="card-container">
                 <?php while ($row = mysqli_fetch_assoc($songResult)): ?>
@@ -106,12 +108,15 @@ if (!$songResult) {
                         <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
                         <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
 
-                        <audio class="audio-player" src="../Admin/<?php echo htmlspecialchars($row['file_path']); ?>" preload="none"></audio>
+                        <audio class="audio-player" src="../Admin/<?php echo htmlspecialchars($row['file_path']); ?>"
+                            preload="none">
+                        </audio>
 
                         <button class="play-pause-btn">Play</button>
 
                         <div class="plays-like-row">
-                            <p class="plays">Plays: <span class="plays-count"><?php echo isset($row['plays']) ? $row['plays'] : 0; ?></span></p>
+                            <p class="plays">Plays: <span
+                                    class="plays-count"><?php echo isset($row['plays']) ? $row['plays'] : 0; ?></span></p>
                             <label class="container">
                                 <?php
                                 $checked = '';
@@ -131,9 +136,11 @@ if (!$songResult) {
                                     $title = "title='Login to like songs'";
                                 }
                                 ?>
-                                <input type="checkbox" class="like-checkbox" data-song-id="<?php echo $row['id_song']; ?>" <?php echo $checked . ' ' . $disabled . ' ' . $title; ?>>
+                                <input type="checkbox" class="like-checkbox" data-song-id="<?php echo $row['id_song']; ?>"
+                                    <?php echo $checked . ' ' . $disabled . ' ' . $title; ?>>
                                 <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z"/>
+                                    <path
+                                        d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z" />
                                 </svg>
                             </label>
                         </div>
@@ -145,33 +152,37 @@ if (!$songResult) {
             </div>
         </section>
 
-         <!-- Top Charts -->
+        <!-- Top Charts -->
         <section class="content-box">
             <h2>🔥 Top Charts</h2>
             <div class="card-container">
-                <div class="card">
-                    <img src="../Assets/image/cover1.png" alt="Album 4">
-                    <p class="title">You're Mine</p>
-                    <p class="artist">Vincentius Bryan</p>
-                </div>
-                <div class="card">
-                    <img src="../Admin/uploads/covers/cover2.png" alt="Album 5">
-                    <p class="title">Attention</p>
-                    <p class="artist">Charlie Puth</p>
-                </div>
-                <div class="card">
-                    <img src="../Admin/uploads/covers/cover3.jpg" alt="Album 6">
-                    <p class="title">APT</p>
-                    <p class="artist">ROSÉ & Bruno Mars</p>
+                <?php
+                include '../connection.php';
+
+                // Ambil 4 lagu dengan plays terbanyak
+                $query = "SELECT * FROM songs ORDER BY plays DESC LIMIT 4";
+                $result = mysqli_query($connect, $query);
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $title = htmlspecialchars($row['title']);
+                    $artist = htmlspecialchars($row['artist']);
+                    $cover = '../Assets/image/' . htmlspecialchars($row['cover_path']);
+
+                    echo "
+                <div class='card'>
+                    <img src='$cover' alt='Cover $title'>
+                    <p class='title'>$title</p>
+                    <p class='artist'>$artist</p>
                 </div>
 
-                <div class="card">
-                    <img src="../Admin/uploads/covers/cover4.jpg" alt="Album 6">
-                    <p class="title">BIRDS OF A FEATHER</p>
-                    <p class="artist">Billie Eilish</p>
-                </div>
+    
+            ";
+                }
+                
+                ?>
             </div>
         </section>
+
 
         <!-- Genres -->
         <section class="content-box">
@@ -185,7 +196,7 @@ if (!$songResult) {
                     <img src="../Assets/image/rock.jpg" alt="Rock">
                     <p class="title">Rock</p>
                 </div>
-                    <div class="card">
+                <div class="card">
                     <img src="../Assets/image/hiphop.jpg" alt="Hip-Hop">
                     <p class="title">Hip-Hop</p>
                 </div>
@@ -197,137 +208,162 @@ if (!$songResult) {
         <p>&copy; 2025 Playtopia. All rights reserved.</p>
     </footer>
 
-<script>
-const cards = document.querySelectorAll('.card');
+    <script>
+        const cards = document.querySelectorAll('.card');
 
-let currentlyPlayingAudio = null;
-let currentlyPlayingBtn = null;
+        let currentlyPlayingAudio = null;
+        let currentlyPlayingBtn = null;
 
-function updatePlaysCount(songId, playsElement) {
-    fetch('Plays.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'song_id=' + songId
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            playsElement.textContent = data.plays;
-        } else {
-            console.error('Failed to update plays:', data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error updating plays:', error);
-    });
-}
-
-cards.forEach((card, index) => {
-    const audio = card.querySelector('.audio-player');
-    const btn = card.querySelector('.play-pause-btn');
-    const progressBar = card.querySelector('.progress-bar');
-    const volumeSlider = card.querySelector('.volume-slider');
-    const songId = card.dataset.songId;
-    const playsElement = card.querySelector('.plays-count');
-
-    if (!audio || !btn) return;
-    
-    let playsCounted = false;
-
-    audio.addEventListener('loadedmetadata', () => {
-        progressBar.max = Math.floor(audio.duration);
-    });
-
-    btn.addEventListener('click', () => {
-        if (audio.paused) {
-            if (currentlyPlayingAudio && currentlyPlayingAudio !== audio) {
-                currentlyPlayingAudio.pause();
-                if (currentlyPlayingBtn) currentlyPlayingBtn.textContent = 'Play';
-            }
-
-            audio.play();
-            btn.textContent = 'Pause';
-            currentlyPlayingAudio = audio;
-            currentlyPlayingBtn = btn;
-            
-            playsCounted = false;
-
-        } else {
-            audio.pause();
-            btn.textContent = 'Play';
-            currentlyPlayingAudio = null;
-            currentlyPlayingBtn = null;
-        }
-    });
-
-    audio.addEventListener('timeupdate', () => {
-        progressBar.value = Math.floor(audio.currentTime);
-    });
-
-    progressBar.addEventListener('input', () => {
-        audio.currentTime = progressBar.value;
-    });
-
-    volumeSlider.addEventListener('input', () => {
-        audio.volume = volumeSlider.value;
-    });
-
-    audio.addEventListener('ended', () => {
-        btn.textContent = 'Play';
-        currentlyPlayingAudio = null;
-        currentlyPlayingBtn = null;
-
-        if (songId && playsElement && !playsCounted) {
-            updatePlaysCount(songId, playsElement);
-            playsCounted = true;
+        function updatePlaysCount(songId, playsElement) {
+            fetch('Plays.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'song_id=' + songId
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        playsElement.textContent = data.plays;
+                    } else {
+                        console.error('Failed to update plays:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating plays:', error);
+                });
         }
 
-        const nextIndex = index + 1;
-        if (nextIndex < cards.length) {
-            const nextCard = cards[nextIndex];
-            const nextAudio = nextCard.querySelector('.audio-player');
-            const nextBtn = nextCard.querySelector('.play-pause-btn');
+        cards.forEach((card, index) => {
+            const audio = card.querySelector('.audio-player');
+            const btn = card.querySelector('.play-pause-btn');
+            const progressBar = card.querySelector('.progress-bar');
+            const volumeSlider = card.querySelector('.volume-slider');
+            const songId = card.dataset.songId;
+            const playsElement = card.querySelector('.plays-count');
 
-            if (nextAudio && nextBtn) {
-                nextAudio.play();
-                nextBtn.textContent = 'Pause';
+            if (!audio || !btn) return;
 
-                currentlyPlayingAudio = nextAudio;
-                currentlyPlayingBtn = nextBtn;
-                
-                const nextSongData = cards[nextIndex];
-                if (nextSongData) {
-            
+            let playsCounted = false;
+
+            audio.addEventListener('loadedmetadata', () => {
+                progressBar.max = Math.floor(audio.duration);
+            });
+
+            btn.addEventListener('click', () => {
+                if (audio.paused) {
+                    if (currentlyPlayingAudio && currentlyPlayingAudio !== audio) {
+                        currentlyPlayingAudio.pause();
+                        if (currentlyPlayingBtn) currentlyPlayingBtn.textContent = 'Play';
+                    }
+
+                    audio.play();
+                    btn.textContent = 'Pause';
+                    currentlyPlayingAudio = audio;
+                    currentlyPlayingBtn = btn;
+
+                    playsCounted = false;
+
+                } else {
+                    audio.pause();
+                    btn.textContent = 'Play';
+                    currentlyPlayingAudio = null;
+                    currentlyPlayingBtn = null;
                 }
-            }
-        }
-    });
-});
+            });
 
-document.querySelectorAll('.like-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-        const songId = checkbox.dataset.songId;
-        const liked = checkbox.checked;
+            audio.addEventListener('timeupdate', () => {
+                progressBar.value = Math.floor(audio.currentTime);
+            });
 
-        fetch('Like_Song.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `song_id=${songId}&liked=${liked ? 1 : 0}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.success) {
-                alert('Failed to update like: ' + data.message);
-                checkbox.checked = !liked;
-            }
-        })
-        .catch(() => {
-            alert('Error connecting to server');
-            checkbox.checked = !liked;
+            progressBar.addEventListener('input', () => {
+                audio.currentTime = progressBar.value;
+            });
+
+            volumeSlider.addEventListener('input', () => {
+                audio.volume = volumeSlider.value;
+            });
+
+            audio.addEventListener('ended', () => {
+                btn.textContent = 'Play';
+                currentlyPlayingAudio = null;
+                currentlyPlayingBtn = null;
+
+                if (songId && playsElement && !playsCounted) {
+                    updatePlaysCount(songId, playsElement);
+                    playsCounted = true;
+                }
+
+                const nextIndex = index + 1;
+                if (nextIndex < cards.length) {
+                    const nextCard = cards[nextIndex];
+                    const nextAudio = nextCard.querySelector('.audio-player');
+                    const nextBtn = nextCard.querySelector('.play-pause-btn');
+
+                    if (nextAudio && nextBtn) {
+                        nextAudio.play();
+                        nextBtn.textContent = 'Pause';
+
+                        currentlyPlayingAudio = nextAudio;
+                        currentlyPlayingBtn = nextBtn;
+
+                        const nextSongData = cards[nextIndex];
+                        if (nextSongData) {
+
+                        }
+                    }
+                }
+            });
         });
-    });
-});
-</script>
+
+        document.querySelectorAll('.like-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const songId = checkbox.dataset.songId;
+                const liked = checkbox.checked;
+
+                fetch('Like_Song.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `song_id=${songId}&liked=${liked ? 1 : 0}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Failed to update like: ' + data.message);
+                            checkbox.checked = !liked;
+                        }
+                    })
+                    .catch(() => {
+                        alert('Error connecting to server');
+                        checkbox.checked = !liked;
+                    });
+            });
+        });
+
+        fetch('../Pages/TopCharts.php') // ganti path jika file bukan di /Pages
+            .then(res => res.json())
+            .then(data => {
+                const container = document.getElementById('topChartsContainer');
+                container.innerHTML = '';
+
+                data.forEach(song => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+
+                    card.innerHTML = `
+            <img src="${song.cover_path}" alt="Cover of ${song.title}">
+                <p class="title">${song.title}</p>
+                <p class="artist">${song.artist}</p>
+      `;
+
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => {
+                console.error("Gagal memuat Top Charts:", err);
+            });
+
+    </script>
 
 </body>
+
 </html>
