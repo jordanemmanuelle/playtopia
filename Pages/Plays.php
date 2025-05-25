@@ -1,0 +1,20 @@
+<?php
+include '../connection.php';
+
+if (isset($_POST['song_id'])) {
+    $song_id = $_POST['song_id'];
+
+    $query = "UPDATE songs SET plays = plays + 1 WHERE id_song = '$song_id'";
+    $result = mysqli_query($connect, $query);
+    
+    if ($result) {
+        $getPlays = "SELECT plays FROM songs WHERE id_song = '$song_id'";
+        $playsResult = mysqli_query($connect, $getPlays);
+        $row = mysqli_fetch_assoc($playsResult);
+        
+        echo json_encode(['success' => true, 'plays' => $row['plays']]);
+    } else {
+        echo json_encode(['success' => false]);
+    }
+}
+?>

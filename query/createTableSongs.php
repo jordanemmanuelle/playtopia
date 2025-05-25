@@ -13,6 +13,9 @@ $sql = "CREATE TABLE songs (
     cover_path VARCHAR(255)
 )";
 
+mysqli_query($connect, "ALTER TABLE songs ADD plays INT DEFAULT 0");
+
+
 if (mysqli_query($connect, $sql)) {
     echo "✅ Table 'songs' created successfully.";
 } else {
