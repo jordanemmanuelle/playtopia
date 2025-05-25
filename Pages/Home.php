@@ -153,35 +153,68 @@ if (!$songResult) {
         </section>
 
         <!-- Top Charts -->
-        <section class="content-box">
-            <h2>🔥 Top Charts</h2>
-            <div class="card-container">
-                <?php
-                include '../connection.php';
+<section class="content-box">
+    <h2>🔥 Top Charts</h2>
+    <div class="card-container">
+        <?php
+        include '../connection.php';
 
-                // Ambil 4 lagu dengan plays terbanyak
-                $query = "SELECT * FROM songs ORDER BY plays DESC LIMIT 4";
-                $result = mysqli_query($connect, $query);
+        // Ambil 4 lagu dengan jumlah plays terbanyak
+        $query = "SELECT * FROM songs ORDER BY plays DESC LIMIT 4";
+        $result = mysqli_query($connect, $query);
 
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $title = htmlspecialchars($row['title']);
-                    $artist = htmlspecialchars($row['artist']);
-                    $cover = '../Assets/image/' . htmlspecialchars($row['cover_path']);
+        while ($row = mysqli_fetch_assoc($result)):
+            $idSong = $row['id_song'];
+            $title = htmlspecialchars($row['title']);
+            $artist = htmlspecialchars($row['artist']);
+            $cover = htmlspecialchars($row['cover_path']);
+            $audio = htmlspecialchars($row['file_path']);
+            $plays = isset($row['plays']) ? $row['plays'] : 0;
 
-                    echo "
-                <div class='card'>
-                    <img src='$cover' alt='Cover $title'>
-                    <p class='title'>$title</p>
-                    <p class='artist'>$artist</p>
+            $checked = '';
+            $disabled = '';
+            $titleAttr = '';
+
+            if (isset($_SESSION['id_user'])) {
+                $userId = $_SESSION['id_user'];
+                $checkLikeQuery = "SELECT * FROM song_likes WHERE id_user = $userId AND id_song = $idSong";
+                $likeResult = mysqli_query($connect, $checkLikeQuery);
+                if ($likeResult && mysqli_num_rows($likeResult) > 0) {
+                    $checked = 'checked';
+                }
+            } else {
+                $disabled = 'disabled';
+                $titleAttr = "title='Login to like songs'";
+            }
+        ?>
+            <div class="card" data-song-id="<?php echo $idSong; ?>">
+                <img src="../Assets/image/<?php echo htmlspecialchars($row['cover_path']); ?>" alt="Cover">
+                <p class="title"><?php echo $title; ?></p>
+                <p class="artist"><?php echo $artist; ?></p>
+
+                <audio class="audio-player" src="../Admin/<?php echo $audio; ?>" preload="none"></audio>
+                <button class="play-pause-btn">Play</button>
+
+                <div class="plays-like-row">
+                    <p class="plays">Plays: <span class="plays-count"><?php echo $plays; ?></span></p>
+                    <label class="container">
+                        <input type="checkbox" class="like-checkbox"
+                            data-song-id="<?php echo $idSong; ?>"
+                            <?php echo $checked . ' ' . $disabled . ' ' . $titleAttr; ?>>
+                        <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z" />
+                        </svg>
+                    </label>
                 </div>
 
-    
-            ";
-                }
-                
-                ?>
+                <input type="range" class="progress-bar" value="0" min="0" step="1">
+                <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="0.5" title="Volume">
             </div>
-        </section>
+        <?php endwhile; ?>
+    </div>
+</section>
+
 
 
         <!-- Genres -->
