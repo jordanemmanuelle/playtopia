@@ -372,29 +372,6 @@ if (!$songResult) {
             });
         });
 
-        fetch('../Pages/TopCharts.php') // ganti path jika file bukan di /Pages
-            .then(res => res.json())
-            .then(data => {
-                const container = document.getElementById('topChartsContainer');
-                container.innerHTML = '';
-
-                data.forEach(song => {
-                    const card = document.createElement('div');
-                    card.classList.add('card');
-
-                    card.innerHTML = `
-            <img src="${song.cover_path}" alt="Cover of ${song.title}">
-                <p class="title">${song.title}</p>
-                <p class="artist">${song.artist}</p>
-      `;
-
-                    container.appendChild(card);
-                });
-            })
-            .catch(err => {
-                console.error("Gagal memuat Top Charts:", err);
-            });
-
     </script>
 
 </body>
