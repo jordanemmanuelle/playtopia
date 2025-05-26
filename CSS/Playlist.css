@@ -178,6 +178,21 @@ h2 {
     background-color: #e0c278;
 }
 
+/* Section Content Box */
+.content-box {
+    background-color: #202020;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content-box h2 {
+    margin-bottom: 15px;
+    font-size: 1.6em;
+    color: #ffffff;
+}
+
 .no-playlist {
     text-align: center;
     color: #aaa;
