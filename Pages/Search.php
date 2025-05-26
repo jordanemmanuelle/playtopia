@@ -155,7 +155,7 @@ $songResult = mysqli_query($connect, $songQuery);
 </footer>
 
 <script>
-    bindCardEvents();
+bindCardEvents();
 document.getElementById('searchInput').addEventListener('keyup', function() {
     const query = this.value;
 
