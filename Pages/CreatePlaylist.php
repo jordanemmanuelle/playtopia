@@ -3,6 +3,34 @@ session_start();
 include '../connection.php';
 
 $userId = $_SESSION['id_user'];
+$editMode = false;
+$playlistData = [
+    'playlist_name' => '',
+    'description' => '',
+    'cover_url' => '',
+    'songs' => []
+];
+
+// Check if editing
+if (isset($_GET['id'])) {
+    $editMode = true;
+    $playlistId = intval($_GET['id']);
+    // Get playlist data
+    $plRes = mysqli_query($connect, "SELECT * FROM playlists WHERE id_playlist=$playlistId AND id_user=$userId");
+    if ($plRes && $row = mysqli_fetch_assoc($plRes)) {
+        $playlistData['playlist_name'] = $row['playlist_name'];
+        $playlistData['description'] = $row['description'];
+        $playlistData['cover_url'] = $row['cover_url'];
+        // Get songs
+        $songRes = mysqli_query($connect, "SELECT id_song FROM playlists_songs WHERE id_playlist=$playlistId");
+        while ($s = mysqli_fetch_assoc($songRes)) {
+            $playlistData['songs'][] = $s['id_song'];
+        }
+    } else {
+        echo "<script>alert('Playlist tidak ditemukan!');window.location.href='../Pages/Playlist.php';</script>";
+        exit;
+    }
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle upload cover file
@@ -32,23 +60,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else {
-        $coverUrl = ''; // optional jika tidak upload cover
+        // If editing and no new file uploaded, keep old cover
+        $coverUrl = $editMode ? $playlistData['cover_url'] : '';
     }
 
     $playlistName = $_POST['playlist_name'];
     $description = $_POST['description'];
     $selectedSongs = $_POST['songs'] ?? [];
-
     $createdAt = date('Y-m-d');
 
-    // Insert playlist tanpa prepared statement, langsung pakai variabel (sesuai permintaan)
-    $query = "INSERT INTO playlists (id_user, playlist_name, description, cover_url, created_at) 
-              VALUES ($userId, '$playlistName', '$description', '$coverUrl', '$createdAt')";
-    $result = mysqli_query($connect, $query);
+    if ($editMode) {
+        // Update playlist
+        $query = "UPDATE playlists SET playlist_name='$playlistName', description='$description', cover_url='$coverUrl' WHERE id_playlist=$playlistId AND id_user=$userId";
+        $result = mysqli_query($connect, $query);
 
-    if ($result) {
-        $playlistId = mysqli_insert_id($connect);
-
+        // Update songs: remove all then insert selected
+        mysqli_query($connect, "DELETE FROM playlists_songs WHERE id_playlist=$playlistId");
         if (!empty($selectedSongs)) {
             foreach ($selectedSongs as $songId) {
                 $insertSong = "INSERT INTO playlists_songs (id_playlist, id_song) VALUES ($playlistId, $songId)";
@@ -56,10 +83,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        echo "<script>alert('Playlist berhasil dibuat!');window.location.href='../Pages/Playlist.php';</script>";
-        exit;
+        if ($result) {
+            echo "<script>alert('Playlist berhasil diupdate!');window.location.href='../Pages/Playlist.php';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Gagal mengupdate playlist.');</script>";
+        }
     } else {
-        echo "<script>alert('Gagal membuat playlist.');</script>";
+        // Insert playlist
+        $query = "INSERT INTO playlists (id_user, playlist_name, description, cover_url, created_at) 
+                  VALUES ($userId, '$playlistName', '$description', '$coverUrl', '$createdAt')";
+        $result = mysqli_query($connect, $query);
+
+        if ($result) {
+            $playlistId = mysqli_insert_id($connect);
+
+            if (!empty($selectedSongs)) {
+                foreach ($selectedSongs as $songId) {
+                    $insertSong = "INSERT INTO playlists_songs (id_playlist, id_song) VALUES ($playlistId, $songId)";
+                    mysqli_query($connect, $insertSong);
+                }
+            }
+
+            echo "<script>alert('Playlist berhasil dibuat!');window.location.href='../Pages/Playlist.php';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Gagal membuat playlist.');</script>";
+        }
     }
 }
 ?>
@@ -69,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8" />
-    <title>Create Playlist</title>
+    <title><?= $editMode ? 'Edit Playlist' : 'Buat Playlist' ?></title>
     <link rel="stylesheet" href="../CSS/CreatePlaylist.css"/>
     <link rel="stylesheet" href="../CSS/homeCSS.css"/>
 </head>
@@ -131,18 +181,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-container">
         <div class="form-header">
             <a href="../Pages/Playlist.php" class="back-button">← Back</a>
-            <h1>Buat Playlist Baru</h1>
+            <h1><?= $editMode ? 'Edit Playlist' : 'Buat Playlist Baru' ?></h1>
         </div>
 
         <form method="POST" action="" enctype="multipart/form-data">
             <label for="playlist_name">Nama Playlist:</label>
-            <input type="text" id="playlist_name" name="playlist_name" required />
+            <input type="text" id="playlist_name" name="playlist_name" required value="<?= htmlspecialchars($playlistData['playlist_name']) ?>" />
+
 
             <label for="description">Deskripsi:</label>
-            <textarea id="description" name="description"></textarea>
+            <textarea id="description" name="description"><?= htmlspecialchars($playlistData['description']) ?></textarea>
+
 
             <label for="cover_file">Upload Cover Playlist:</label>
+            <?php if ($editMode && !empty($playlistData['cover_url'])): ?>
+            <p>Cover saat ini: <img src="<?= htmlspecialchars($playlistData['cover_url']) ?>" alt="Current Cover" style="height: 100px;"></p>
+            <?php endif; ?>
             <input type="file" id="cover_file" name="cover_file" accept="image/*" />
+
 
             <label>Pilih Lagu:</label>
             <div class="song-list">
@@ -151,15 +207,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $songsResult = mysqli_query($connect, $songsQuery);
                 if ($songsResult && mysqli_num_rows($songsResult) > 0) {
                     while ($song = mysqli_fetch_assoc($songsResult)) {
-                        echo "<label><input type='checkbox' name='songs[]' value='{$song['id_song']}' /> {$song['title']} - {$song['artist']}</label><br />";
+                        $isChecked = in_array($song['id_song'], $playlistData['songs']) ? 'checked' : '';
+                        echo "<label><input type='checkbox' name='songs[]' value='{$song['id_song']}' $isChecked /> {$song['title']} - {$song['artist']}</label><br />";
                     }
+
                 } else {
                     echo "<p>Tidak ada lagu tersedia.</p>";
                 }
                 ?>
             </div>
 
-            <input type="submit" value="Buat Playlist" />
+            <input type="submit" value="<?= $editMode ? 'Update Playlist' : 'Buat Playlist' ?>" />
+
 
         </form>
     </div>
