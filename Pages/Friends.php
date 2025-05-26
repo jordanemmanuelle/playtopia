@@ -11,7 +11,8 @@ $currentUser = $_SESSION['id_user'];
 $message = "";
 
 // Fungsi sederhana bersihkan input
-function cleanInput($data) {
+function cleanInput($data)
+{
     return trim(strip_tags($data));
 }
 
@@ -54,7 +55,7 @@ if (isset($_POST['add_friend'])) {
 // ACCEPT / DECLINE FRIEND REQUEST
 if (isset($_POST['action']) && isset($_POST['request_from'])) {
     $action = $_POST['action'];
-    $requestFrom = (int)$_POST['request_from'];
+    $requestFrom = (int) $_POST['request_from'];
 
     if ($action == 'accept') {
         $update = "UPDATE friends SET status = 'accepted' WHERE id_user1 = $requestFrom AND id_user2 = $currentUser AND status = 'pending'";
@@ -88,54 +89,59 @@ while ($row = mysqli_fetch_assoc($resFriends)) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <title>Friends</title>
     <link rel="stylesheet" href="../CSS/Friends.css">
+
 </head>
+
 <body>
     <!-- Tombol Back -->
-<button class="btn-back" onclick="window.history.back()">← Back</button>
+    <button class="btn-back" onclick="window.history.back()">← Back</button>
 
-<h1>Friends</h1>
+    <h1>Friends</h1>
 
-<?php if ($message != "") echo "<p><b>$message</b></p>"; ?>
+    <?php if ($message != "")
+        echo "<p><b>$message</b></p>"; ?>
 
-<!-- Add Friend -->
-<h2>Add a Friend</h2>
-<form method="POST" action="">
-    <input type="text" name="friend_username" placeholder="Enter username" required />
-    <button type="submit" name="add_friend">Send Request</button>
-</form>
+    <!-- Add Friend -->
+    <h2>Add a Friend</h2>
+    <form method="POST" action="">
+        <input type="text" name="friend_username" placeholder="Enter username" required />
+        <button type="submit" name="add_friend">Send Request</button>
+    </form>
 
-<!-- Friend Requests -->
-<h2>Friend Requests</h2>
-<?php if (count($requests) > 0): ?>
-    <?php foreach ($requests as $req): ?>
-        <div>
-            <strong><?php echo htmlspecialchars($req['username']); ?></strong> wants to be your friend.
-            <form method="POST" style="display:inline;">
-                <input type="hidden" name="request_from" value="<?php echo (int)$req['id_user1']; ?>" />
-                <button type="submit" name="action" value="accept">Accept</button>
-                <button type="submit" name="action" value="decline">Decline</button>
-            </form>
-        </div>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>No friend requests.</p>
-<?php endif; ?>
-
-<!-- Friend List -->
-<h2>Your Friends</h2>
-<?php if (count($friends) > 0): ?>
-    <ul>
-        <?php foreach ($friends as $f): ?>
-            <li><?php echo htmlspecialchars($f['username']); ?></li>
+    <!-- Friend Requests -->
+    <h2>Friend Requests</h2>
+    <?php if (count($requests) > 0): ?>
+        <?php foreach ($requests as $req): ?>
+            <div>
+                <strong><?php echo htmlspecialchars($req['username']); ?></strong> wants to be your friend.
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="request_from" value="<?php echo (int) $req['id_user1']; ?>" />
+                    <button type="submit" name="action" value="accept">Accept</button>
+                    <button type="submit" name="action" value="decline">Decline</button>
+                </form>
+            </div>
         <?php endforeach; ?>
-    </ul>
-<?php else: ?>
-    <p>You have no friends yet.</p>
-<?php endif; ?>
+    <?php else: ?>
+        <p>No friend requests.</p>
+    <?php endif; ?>
+
+    <!-- Friend List -->
+    <h2>Your Friends</h2>
+    <?php if (count($friends) > 0): ?>
+        <ul>
+            <?php foreach ($friends as $f): ?>
+                <li><?php echo htmlspecialchars($f['username']); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else: ?>
+        <p>You have no friends yet.</p>
+    <?php endif; ?>
 
 </body>
+
 </html>

@@ -52,57 +52,56 @@ if ($playlistId) {
 </head>
 <body>
 <header class="playtopia-header">
-    <button class="setting-btn">
-        <span class="bar bar1"></span>
-        <span class="bar bar2"></span>
-        <span class="bar bar1"></span>
-    </button>
+        <button class="setting-btn">
+            <span class="bar bar1"></span>
+            <span class="bar bar2"></span>
+            <span class="bar bar1"></span>
+        </button>
 
-    <div id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h2>Library</h2>
-            <button class="close-btn">&times;</button>
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>Library</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <ul>
+                <li><a href="../Pages/Playlist.php">Playlist</a></li>
+                <li><a href="../Pages/LikedSongMenu.php">Liked Songs</a></li>
+                <li><a href="#">Albums</a></li>
+                <li><a href="#">Artists</a></li>
+                <li><a href="Profile.php">Profile</a></li>
+                <li><a href="Friends.php">Friends</a></li>
+            </ul>
         </div>
-        <ul>
-            <li><a href="../Pages/Playlist.php">Playlist</a></li>
-            <li><a href="#">Liked Songs</a></li>
-            <li><a href="#">Recently Played</a></li>
-            <li><a href="#">Albums</a></li>
-            <li><a href="#">Artists</a></li>
-            <li><a href="Profile.php">Profile</a></li>
-            <li><a href="Friends.php">Friends</a></li>
-        </ul>
-    </div>
 
-    <script>
-        const settingBtn = document.querySelector('.setting-btn');
-        const sidebar = document.getElementById('sidebar');
-        const closeBtn = document.querySelector('.close-btn');
+        <script>
+            const settingBtn = document.querySelector('.setting-btn');
+            const sidebar = document.getElementById('sidebar');
+            const closeBtn = document.querySelector('.close-btn');
 
-        settingBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
+            settingBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+            });
 
-        closeBtn.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
-    </script>
+            closeBtn.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        </script>
 
-    <div class="logo">
-        <img src="../Assets/image/LogoPlaytopia1.png" alt="Logo">
-    </div>
+        <div class="logo">
+            <img src="../Assets/image/LogoPlaytopia1.png" alt="Logo">
+        </div>
 
-    <nav class="nav-links">
-        <a href="Home.php"><b>Home</b></a>
-        <a href="Search.php"><b>Search</b></a>
-        <?php if (isset($_SESSION['id_user'])): ?>
-            <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
-        <?php else: ?>
-            <a href="../LoginRegister/FormRegister.html"><b>Register</b></a>
-            <a href="../LoginRegister/FormLogin.html"><b>Login</b></a>
-        <?php endif; ?>
-    </nav>
-</header>
+        <nav class="nav-links">
+            <a href="Home.php"><b>Home</b></a>
+            <a href="Search.php"><b>Search</b></a>
+            <?php if (isset($_SESSION['id_user'])): ?>
+                <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
+            <?php else: ?>
+                <a href="../LoginRegister/FormRegister.html"><b>Register</b></a>
+                <a href="../LoginRegister/FormLogin.html"><b>Login</b></a>
+            <?php endif; ?>
+        </nav>
+    </header>
 
 <main class="main-content">
     <?php if ($playlistId && isset($playlist)): ?>
