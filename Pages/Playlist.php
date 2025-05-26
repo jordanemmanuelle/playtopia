@@ -117,6 +117,7 @@ if ($playlistId) {
             </div>
 
             <h3>Songs in this Playlist 🎵</h3>
+            <!-- perlu bikin biar bisa play dan jadiin card aja -->
             <?php if (!empty($songs)): ?>
                 <div class="song-list">
                     <?php foreach ($songs as $song): ?>
