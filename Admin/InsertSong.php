@@ -80,7 +80,7 @@
                         $duration = !empty($duration) ? $duration : "NULL";
 
                         $query = "INSERT INTO songs (title, artist, album, genre, release_year, duration, file_path, cover_path)
-                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$filePath', '$coverName')";
+                                VALUES ('$title', '$artist', '$album', '$genre', $release_year, $duration, '$fileName', '$coverName')";
 
                         if (mysqli_query($connect, $query)) {
                             echo "<script>alert('Lagu berhasil dimasukkan!');</script>";

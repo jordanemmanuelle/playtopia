@@ -107,7 +107,7 @@ if (!$songResult) {
                         <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
                         <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
 
-                        <audio class="audio-player" src="../Admin/<?php echo htmlspecialchars($row['file_path']); ?>"
+                        <audio class="audio-player" src="../Assets/song/<?php echo htmlspecialchars($row['file_path']); ?>"
                             preload="none">
                         </audio>
 
@@ -191,7 +191,7 @@ if (!$songResult) {
                 <p class="title"><?php echo $title; ?></p>
                 <p class="artist"><?php echo $artist; ?></p>
 
-                <audio class="audio-player" src="../Admin/<?php echo $audio; ?>" preload="none"></audio>
+                <audio class="audio-player" src="../Assets/song/<?php echo $audio; ?>" preload="none"></audio>
                 <button class="play-pause-btn">Play</button>
 
                 <div class="plays-like-row">
