@@ -190,7 +190,7 @@ if ($playlistId) {
                           <a href="like_playlist.php?id=<?= $p['id_playlist'] ?>" class="btn-like" onclick="event.stopPropagation();">❤️ Like</a>
                           <a href="share_playlist.php?id=<?= $p['id_playlist'] ?>" class="btn-share" onclick="event.stopPropagation();">🔗 Share</a>
                           <a href="CreatePlaylist.php?id=<?= $p['id_playlist'] ?>" class="btn-edit" onclick="event.stopPropagation();">✏️ Edit</a>
-                          <form action="Delete_playlist.php" method="POST" style="display:inline;" onsubmit="event.stopPropagation(); return confirm('Are you sure you want to delete this playlist?');">
+                          <form action="Delete_playlist.php?id=<?= $p['id_playlist'] ?>" method="POST" style="display:inline;" onsubmit="event.stopPropagation(); return confirm('Are you sure you want to delete this playlist?');">
                               <input type="hidden" name="id" value="<?= $p['id_playlist'] ?>">
                               <button type="submit" class="btn-delete" style="background:none;border:none;color:inherit;cursor:pointer;">🗑️ Delete</button>
                           </form>
