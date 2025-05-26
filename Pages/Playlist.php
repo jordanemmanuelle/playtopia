@@ -180,14 +180,39 @@ if ($playlistId) {
             <p class="no-playlist">No playlists yet.</p>
         <?php else: ?>
             <div class="card-container">
-                <?php foreach ($playlists as $p): ?>
+                <?php foreach ($playlists as $p): 
+                    $idPlaylist = $p['id_playlist'];
+                    $checked = '';
+                    $disabled = '';
+                    $titleAttr = '';
+
+                    if (isset($_SESSION['id_user'])) {
+                        $userId = $_SESSION['id_user'];
+                        $checkLikeQuery = "SELECT * FROM playlists WHERE id_user = $userId AND id_playlist = $idPlaylist";
+                        $likeResult = mysqli_query($connect, $checkLikeQuery);
+                        if ($likeResult && mysqli_num_rows($likeResult) > 0) {
+                            $checked = 'checked';
+                        }
+                    } else {
+                        $disabled = 'disabled';
+                        $titleAttr = "title='Login to like songs'";
+                    }
+                    ?>
                     <a href="Playlist.php?id=<?= $p['id_playlist'] ?>" class="card-link">
                       <div class="card">
                         <img src="<?= $p['cover_url'] ?>" alt="<?= $p['playlist_name'] ?>">
                         <div class="title"><?= $p['playlist_name'] ?></div>
                         <div class="artist">Created: <?= $p['created_at'] ?></div>
                         <div class="card-actions">
-                          <a href="like_playlist.php?id=<?= $p['id_playlist'] ?>" class="btn-like" onclick="event.stopPropagation();">❤️ Like</a>
+                          <label class="container">
+                                <input type="checkbox" class="playlist-like-checkbox"
+                                    data-playlist-id="<?php echo $idPlaylist; ?>"
+                                    <?php echo $checked . ' ' . $disabled . ' ' . $titleAttr; ?>>
+                                <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z" />
+                                </svg>
+                            </label>
                           <a href="share_playlist.php?id=<?= $p['id_playlist'] ?>" class="btn-share" onclick="event.stopPropagation();">🔗 Share</a>
                           <a href="CreatePlaylist.php?id=<?= $p['id_playlist'] ?>" class="btn-edit" onclick="event.stopPropagation();">✏️ Edit</a>
                           <form action="Delete_playlist.php?id=<?= $p['id_playlist'] ?>" method="POST" style="display:inline;" onsubmit="event.stopPropagation(); return confirm('Are you sure you want to delete this playlist?');">
@@ -325,6 +350,30 @@ if ($playlistId) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: `song_id=${songId}&liked=${liked ? 1 : 0}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Failed to update like: ' + data.message);
+                            checkbox.checked = !liked;
+                        }
+                    })
+                    .catch(() => {
+                        alert('Error connecting to server');
+                        checkbox.checked = !liked;
+                    });
+            });
+        });
+
+        document.querySelectorAll('.playlist-like-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const playlistId = checkbox.dataset.playlistId;
+                const liked = checkbox.checked;
+
+                fetch('Like_Playlist.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `playlist_id=${playlistId}&liked=${liked ? 1 : 0}`
                 })
                     .then(response => response.json())
                     .then(data => {

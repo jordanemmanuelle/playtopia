@@ -275,22 +275,6 @@ h2 {
     background-color: #707070;
 }
 
-.btn-like {
-    background-color: #c74848;
-}
-
-.btn-like:hover {
-    background-color: #e05c5c;
-}
-
-.btn-share {
-    background-color: #3c91e6;
-}
-
-.btn-share:hover {
-    background-color: #579ef0;
-}
-
 /* Single Playlist */
 .single-playlist {
     padding: 20px;
