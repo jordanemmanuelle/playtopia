@@ -397,6 +397,11 @@ body {
   color: #ccc;
 }
 
+a {
+    text-decoration: none;
+    color: #cbae6d;
+}
+
 /* Mobile friendly touch target */
 @media (max-width: 600px) {
     .card audio {

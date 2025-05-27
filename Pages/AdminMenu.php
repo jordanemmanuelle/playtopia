@@ -65,12 +65,20 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
         </section>
 
         <section class="content-box">
-            <h2>➕ Tambah Lagu</h2>
             <div class="card-container">
-                <a href="../Admin/InsertSong.php" class="card">
-                    <img src="../Assets/image/admin-upload.jpg" alt="Add Songs">
-                    <p class="title">Tambah Lagu</p>
-                </a>
+                <a href="../Admin/InsertSong.php" class="card">➕ Add Song</a>
+            </div>
+        </section>
+
+        <section class="content-box">
+            <div class="card-container">
+                <a href="../Admin/editSong.php" class="card">➕ Edit Song</a>
+            </div>
+        </section>
+
+        <section class="content-box">
+            <div class="card-container">
+                <a href="../Admin/InsertAlbum.php" class="card">➕ Add Album</a>
             </div>
         </section>
     </main>
