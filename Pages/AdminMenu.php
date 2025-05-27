@@ -72,7 +72,7 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
 
         <section class="content-box">
             <div class="card-container">
-                <a href="../Admin/editSong.php" class="card">➕ Edit Song</a>
+                <a href="../Admin/AllTabel.php" class="card">➕ All Table</a>
             </div>
         </section>
 
