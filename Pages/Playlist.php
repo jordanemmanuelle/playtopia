@@ -213,7 +213,7 @@ if ($playlistId) {
                                         d="M16.4,4C14.6,4,13,4.9,12,6.3C11,4.9,9.4,4,7.6,4C4.5,4,2,6.5,2,9.6C2,14,12,22,12,22s10-8,10-12.4C22,6.5,19.5,4,16.4,4z" />
                                 </svg>
                             </label>
-                          <a href="share_playlist.php?id=<?= $p['id_playlist'] ?>" class="btn-share" onclick="event.stopPropagation();">🔗 Share</a>
+                          <a href="SharePlaylist.php?id=<?= $p['id_playlist'] ?>" class="btn-share" onclick="event.stopPropagation();">🔗 Share</a>
                           <a href="CreatePlaylist.php?id=<?= $p['id_playlist'] ?>" class="btn-edit" onclick="event.stopPropagation();">✏️ Edit</a>
                           <form action="Delete_playlist.php?id=<?= $p['id_playlist'] ?>" method="POST" style="display:inline;" onsubmit="event.stopPropagation(); return confirm('Are you sure you want to delete this playlist?');">
                               <input type="hidden" name="id" value="<?= $p['id_playlist'] ?>">
