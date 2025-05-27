@@ -1,0 +1,125 @@
+/* AllTabel.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+}
+
+/* Container umum */
+body > h1 {
+    text-align: center;
+    color: #cbae6d;
+    font-size: 2.5em;
+    margin-top: 30px;
+}
+
+/* Subjudul (tiap tabel) */
+h3 {
+    color: #cbae6d;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* Tabel umum */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #202020;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #ddd;
+}
+
+/* Header tabel */
+table th {
+    background-color: #2a2a2a;
+    padding: 15px;
+    text-align: left;
+    color: #cbae6d;
+    font-size: 1em;
+    border-bottom: 1px solid #444;
+}
+
+/* Isi tabel */
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    font-size: 0.95em;
+}
+
+/* Hover effect */
+table tr:hover {
+    background-color: #333;
+}
+
+/* Link Edit */
+a {
+    text-decoration: none;
+    color: #cbae6d;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #a68c43;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        background-color: #202020;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    td {
+        padding: 12px;
+        text-align: right;
+        position: relative;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 12px;
+        font-weight: bold;
+        color: #cbae6d;
+        text-align: left;
+    }
+}
+
+.btn-back-admin {
+    background-color: #232323;
+    color: #cbae6d;
+    border: 2px solid #cbae6d;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 25px auto 15px auto;
+    display: block;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    letter-spacing: 0.5px;
+}
+
+.btn-back-admin:hover {
+    background-color: #cbae6d;
+    color: #232323;
+    border: 2px solid #a68c43;
+}
