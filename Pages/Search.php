@@ -2,7 +2,7 @@
 session_start();
 include '../connection.php';
 
-$songQuery = "SELECT * FROM songs LIMIT 4";
+$songQuery = "SELECT * FROM songs";
 $songResult = mysqli_query($connect, $songQuery);
 ?>
 
