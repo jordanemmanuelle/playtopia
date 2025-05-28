@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../auth.php';
 include '../connection.php';
 
 $userId = $_SESSION['id_user'];
