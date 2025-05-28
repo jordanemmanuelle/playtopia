@@ -1,7 +1,6 @@
 <?php
 include '../connection.php';
 
-// Get all songs from database
 $sql = "SELECT id_song, title, artist, album, genre, release_year, duration, file_path, cover_path, plays FROM songs ORDER BY title ASC";
 $result = mysqli_query($connect, $sql);
 

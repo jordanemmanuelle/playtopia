@@ -10,18 +10,15 @@ $playlistData = [
     'cover_url' => '',
     'songs' => []
 ];
-
-// Check if editing
+// ngedit
 if (isset($_GET['id'])) {
     $editMode = true;
     $playlistId = intval($_GET['id']);
-    // Get playlist data
     $plRes = mysqli_query($connect, "SELECT * FROM playlists WHERE id_playlist=$playlistId AND id_user=$userId");
     if ($plRes && $row = mysqli_fetch_assoc($plRes)) {
         $playlistData['playlist_name'] = $row['playlist_name'];
         $playlistData['description'] = $row['description'];
         $playlistData['cover_url'] = $row['cover_url'];
-        // Get songs
         $songRes = mysqli_query($connect, "SELECT id_song FROM playlists_songs WHERE id_playlist=$playlistId");
         while ($s = mysqli_fetch_assoc($songRes)) {
             $playlistData['songs'][] = $s['id_song'];
@@ -33,7 +30,6 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle upload cover file
     if (isset($_FILES['cover_file']) && $_FILES['cover_file']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = __DIR__ . '/uploads/covers/';
         if (!is_dir($uploadDir)) {
@@ -60,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     } else {
-        // If editing and no new file uploaded, keep old cover
+        // kalo gaada yang diupload, pake cover lama
         $coverUrl = $editMode ? $playlistData['cover_url'] : '';
     }
 
@@ -74,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query = "UPDATE playlists SET playlist_name='$playlistName', description='$description', cover_url='$coverUrl' WHERE id_playlist=$playlistId AND id_user=$userId";
         $result = mysqli_query($connect, $query);
 
-        // Update songs: remove all then insert selected
         mysqli_query($connect, "DELETE FROM playlists_songs WHERE id_playlist=$playlistId");
         if (!empty($selectedSongs)) {
             foreach ($selectedSongs as $songId) {
@@ -90,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "<script>alert('Gagal mengupdate playlist.');</script>";
         }
     } else {
-        // Insert playlist
         $query = "INSERT INTO playlists (id_user, playlist_name, description, cover_url, created_at) 
                   VALUES ($userId, '$playlistName', '$description', '$coverUrl', '$createdAt')";
         $result = mysqli_query($connect, $query);

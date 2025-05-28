@@ -10,13 +10,11 @@ if (!isset($_SESSION['id_user'])) {
 $currentUser = $_SESSION['id_user'];
 $message = "";
 
-// Fungsi sederhana bersihkan input
 function cleanInput($data)
 {
     return trim(strip_tags($data));
 }
 
-// ADD FRIEND REQUEST
 if (isset($_POST['add_friend'])) {
     $friendUsername = cleanInput($_POST['friend_username']);
     $friendUsername = mysqli_real_escape_string($connect, $friendUsername);
@@ -30,7 +28,6 @@ if (isset($_POST['add_friend'])) {
         if ($friendId == $currentUser) {
             $message = "You cannot add yourself as a friend.";
         } else {
-            // cek sudah ada hubungan / request
             $check = "SELECT * FROM friends WHERE 
                 (id_user1 = $currentUser AND id_user2 = $friendId) OR (id_user1 = $friendId AND id_user2 = $currentUser)";
             $resCheck = mysqli_query($connect, $check);
@@ -52,7 +49,6 @@ if (isset($_POST['add_friend'])) {
     }
 }
 
-// ACCEPT / DECLINE FRIEND REQUEST
 if (isset($_POST['action']) && isset($_POST['request_from'])) {
     $action = $_POST['action'];
     $requestFrom = (int) $_POST['request_from'];
@@ -68,7 +64,7 @@ if (isset($_POST['action']) && isset($_POST['request_from'])) {
     }
 }
 
-// AMBIL FRIEND REQUESTS
+
 $requests = [];
 $sqlReq = "SELECT f.id_user1, u.username FROM friends f JOIN users u ON f.id_user1 = u.id_user WHERE f.id_user2 = $currentUser AND f.status = 'pending'";
 $resReq = mysqli_query($connect, $sqlReq);
@@ -76,7 +72,6 @@ while ($row = mysqli_fetch_assoc($resReq)) {
     $requests[] = $row;
 }
 
-// AMBIL FRIEND LIST
 $friends = [];
 $sqlFriends = "SELECT u.id_user, u.username FROM users u JOIN friends f ON 
     ((f.id_user1 = u.id_user AND f.id_user2 = $currentUser) OR (f.id_user2 = u.id_user AND f.id_user1 = $currentUser))
@@ -98,7 +93,6 @@ while ($row = mysqli_fetch_assoc($resFriends)) {
 </head>
 
 <body>
-    <!-- Tombol Back -->
     <button class="btn-back" onclick="window.history.back()">← Back</button>
 
     <h1>Friends</h1>
@@ -106,14 +100,15 @@ while ($row = mysqli_fetch_assoc($resFriends)) {
     <?php if ($message != "")
         echo "<p><b>$message</b></p>"; ?>
 
-    <!-- Add Friend -->
+
     <h2>Add a Friend</h2>
     <form method="POST" action="">
         <input type="text" name="friend_username" placeholder="Enter username" required />
         <button type="submit" name="add_friend">Send Request</button>
     </form>
 
-    <!-- Friend Requests -->
+
+
     <h2>Friend Requests</h2>
     <?php if (count($requests) > 0): ?>
         <?php foreach ($requests as $req): ?>
@@ -130,7 +125,8 @@ while ($row = mysqli_fetch_assoc($resFriends)) {
         <p>No friend requests.</p>
     <?php endif; ?>
 
-    <!-- Friend List -->
+
+
     <h2>Your Friends</h2>
     <?php if (count($friends) > 0): ?>
         <ul>

@@ -158,7 +158,6 @@ if (!$songResult) {
         <?php
         include '../connection.php';
 
-        // Ambil 4 lagu dengan jumlah plays terbanyak
         $query = "SELECT * FROM songs ORDER BY plays DESC LIMIT 4";
         $result = mysqli_query($connect, $query);
 

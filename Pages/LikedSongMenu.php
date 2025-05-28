@@ -84,7 +84,7 @@ $result = mysqli_query($connect, $query);
             <?php endif; ?>
         </nav>
     </header>
-    
+
     <section class="content-box">
         <h2>❤️ Liked Songs</h2>
         <div class="card-container">
@@ -95,7 +95,7 @@ $result = mysqli_query($connect, $query);
                         <p class="title"><?php echo htmlspecialchars($row['title']); ?></p>
                         <p class="artist"><?php echo htmlspecialchars($row['artist']); ?></p>
 
-                        <audio class="audio-player" src="../Admin/<?php echo htmlspecialchars($row['file_path']); ?>"
+                        <audio class="audio-player" src="../Assets/song/<?php echo htmlspecialchars($row['file_path']); ?>"
                             preload="none"></audio>
                         <button class="play-pause-btn">Play</button>
 
@@ -122,7 +122,140 @@ $result = mysqli_query($connect, $query);
         </div>
     </section>
 
-    <script src="../Assets/script.js"></script> <!-- Untuk play/pause dan like functionality -->
+    
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        let currentlyPlayingAudio = null;
+        let currentlyPlayingBtn = null;
+
+        function updatePlaysCount(songId, playsElement) {
+            fetch('Plays.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'song_id=' + songId
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        playsElement.textContent = data.plays;
+                    } else {
+                        console.error('Failed to update plays:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating plays:', error);
+                });
+        }
+
+        cards.forEach((card, index) => {
+            const audio = card.querySelector('.audio-player');
+            const btn = card.querySelector('.play-pause-btn');
+            const progressBar = card.querySelector('.progress-bar');
+            const volumeSlider = card.querySelector('.volume-slider');
+            const songId = card.dataset.songId;
+            const playsElement = card.querySelector('.plays-count');
+
+            if (!audio || !btn) return;
+
+            let playsCounted = false;
+
+            audio.addEventListener('loadedmetadata', () => {
+                progressBar.max = Math.floor(audio.duration);
+            });
+
+            btn.addEventListener('click', () => {
+                if (audio.paused) {
+                    if (currentlyPlayingAudio && currentlyPlayingAudio !== audio) {
+                        currentlyPlayingAudio.pause();
+                        if (currentlyPlayingBtn) currentlyPlayingBtn.textContent = 'Play';
+                    }
+
+                    audio.play();
+                    btn.textContent = 'Pause';
+                    currentlyPlayingAudio = audio;
+                    currentlyPlayingBtn = btn;
+
+                    playsCounted = false;
+
+                } else {
+                    audio.pause();
+                    btn.textContent = 'Play';
+                    currentlyPlayingAudio = null;
+                    currentlyPlayingBtn = null;
+                }
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                progressBar.value = Math.floor(audio.currentTime);
+            });
+
+            progressBar.addEventListener('input', () => {
+                audio.currentTime = progressBar.value;
+            });
+
+            volumeSlider.addEventListener('input', () => {
+                audio.volume = volumeSlider.value;
+            });
+
+            audio.addEventListener('ended', () => {
+                btn.textContent = 'Play';
+                currentlyPlayingAudio = null;
+                currentlyPlayingBtn = null;
+
+                if (songId && playsElement && !playsCounted) {
+                    updatePlaysCount(songId, playsElement);
+                    playsCounted = true;
+                }
+
+                const nextIndex = index + 1;
+                if (nextIndex < cards.length) {
+                    const nextCard = cards[nextIndex];
+                    const nextAudio = nextCard.querySelector('.audio-player');
+                    const nextBtn = nextCard.querySelector('.play-pause-btn');
+
+                    if (nextAudio && nextBtn) {
+                        nextAudio.play();
+                        nextBtn.textContent = 'Pause';
+
+                        currentlyPlayingAudio = nextAudio;
+                        currentlyPlayingBtn = nextBtn;
+
+                        const nextSongData = cards[nextIndex];
+                        if (nextSongData) {
+
+                        }
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.like-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                const songId = checkbox.dataset.songId;
+                const liked = checkbox.checked;
+
+                fetch('Like_Song.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `song_id=${songId}&liked=${liked ? 1 : 0}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.success) {
+                            alert('Failed to update like: ' + data.message);
+                            checkbox.checked = !liked;
+                        }
+                    })
+                    .catch(() => {
+                        alert('Error connecting to server');
+                        checkbox.checked = !liked;
+                    });
+            });
+        });
+
+    </script>
 </body>
+
 
 </html>

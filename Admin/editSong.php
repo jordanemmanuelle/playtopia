@@ -1,7 +1,6 @@
 <?php
 include '../connection.php';
 
-// Ambil ID dari URL
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $song = null;
 
@@ -36,7 +35,6 @@ if ($id > 0) {
             }
         }
 
-        // Update data ke DB
         $update = mysqli_query($connect, "UPDATE songs SET 
             title = '$title',
             artist = '$artist',
@@ -65,7 +63,6 @@ if ($id > 0) {
         }
     }
 
-    // Ambil data terbaru dari DB
     $result = mysqli_query($connect, "SELECT * FROM songs WHERE id_song = $id");
     $song = mysqli_fetch_assoc($result);
 

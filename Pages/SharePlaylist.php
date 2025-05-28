@@ -15,7 +15,6 @@ if (!$playlistId) {
     exit;
 }
 
-// Fetch original playlist
 $playlistRes = mysqli_query($connect, "SELECT * FROM playlists WHERE id_playlist=$playlistId AND id_user=$userId");
 if (!$playlistRes || mysqli_num_rows($playlistRes) === 0) {
     echo "<script>alert('Playlist not found.'); window.location.href='Playlist.php';</script>";
@@ -23,14 +22,12 @@ if (!$playlistRes || mysqli_num_rows($playlistRes) === 0) {
 }
 $playlist = mysqli_fetch_assoc($playlistRes);
 
-// Fetch playlist songs
 $songsRes = mysqli_query($connect, "SELECT id_song FROM playlists_songs WHERE id_playlist=$playlistId");
 $songIds = [];
 while ($row = mysqli_fetch_assoc($songsRes)) {
     $songIds[] = $row['id_song'];
 }
 
-// Fetch accepted friends
 $friendQuery = "
     SELECT u.id_user, u.username
     FROM users u
@@ -48,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['friend_ids'])) {
     foreach ($friendIds as $friendId) {
         $friendId = intval($friendId);
 
-        // Create copy of playlist
         $nameCopy = $playlist['playlist_name'] . " (Shared)";
         $descCopy = "Shared from user ID $userId: " . $playlist['description'];
         $coverCopy = $playlist['cover_url'];
@@ -58,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['friend_ids'])) {
         mysqli_query($connect, $insertPlaylist);
         $newPlaylistId = mysqli_insert_id($connect);
 
-        // Copy songs
         foreach ($songIds as $songId) {
             mysqli_query($connect, "INSERT INTO playlists_songs (id_playlist, id_song) VALUES ($newPlaylistId, $songId)");
         }
@@ -74,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['friend_ids'])) {
 <head>
     <meta charset="UTF-8">
     <title>Share Playlist</title>
-    <link rel="stylesheet" href="../CSS/SharePlaylist.css"> <!-- Style later -->
+    <link rel="stylesheet" href="../CSS/SharePlaylist.css">
 </head>
 <body>
   <header class="playtopia-header">
