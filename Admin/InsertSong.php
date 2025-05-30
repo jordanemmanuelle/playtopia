@@ -1,7 +1,51 @@
 <!DOCTYPE html>
 <html>
-    <body>
+    <head>
+        <link rel="stylesheet" href="../CSS/homeCSS.css">
         <link rel="stylesheet" href="../CSS/InsertSong.css">
+    </head>
+    <body>
+        <header class="playtopia-header">
+            <button class="setting-btn">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar1"></span>
+            </button>
+
+            <div id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Admin Panel</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <ul>
+                    <li><a href="AddSongs.php">Tambah Lagu</a></li>
+                </ul>
+            </div>
+
+            <script>
+                const settingBtn = document.querySelector('.setting-btn');
+                const sidebar = document.getElementById('sidebar');
+                const closeBtn = document.querySelector('.close-btn');
+
+                settingBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+
+                closeBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                });
+            </script>
+
+            <div class="logo">
+                <img src="../Assets/image/LogoPlaytopia1.png">
+            </div>
+
+            <nav class="nav-links">
+                <a href="../Pages/AdminMenu.php"><b>Dashboard</b></a>
+                <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
+            </nav>
+        </header>
+
         <div class="form-container">
             <div class="form-header">
             <a href="../Pages/AdminMenu.php" class="back-button">Back</a>

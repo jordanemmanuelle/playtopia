@@ -78,45 +78,88 @@ if ($id > 0) {
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Edit Song</title>
-</head>
-<body>
-    <h1>Edit Song</h1>
+    <head>
+        <link rel="stylesheet" href="../CSS/homeCSS.css">
+        <link rel="stylesheet" href="../CSS/editSong.css">
+    </head>
+    <body>
+        <header class="playtopia-header">
+            <button class="setting-btn">
+                <span class="bar bar1"></span>
+                <span class="bar bar2"></span>
+                <span class="bar bar1"></span>
+            </button>
 
-    <form action="" method="post" enctype="multipart/form-data">
-        <label>Title:</label><br>
-        <input type="text" name="title" value="<?php echo htmlspecialchars($song['title']); ?>" required><br><br>
+            <div id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h2>Admin Panel</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <ul>
+                    <li><a href="AddSongs.php">Tambah Lagu</a></li>
+                </ul>
+            </div>
 
-        <label>Artist:</label><br>
-        <input type="text" name="artist" value="<?php echo htmlspecialchars($song['artist']); ?>" required><br><br>
+            <script>
+                const settingBtn = document.querySelector('.setting-btn');
+                const sidebar = document.getElementById('sidebar');
+                const closeBtn = document.querySelector('.close-btn');
 
-        <label>Album:</label><br>
-        <input type="text" name="album" value="<?php echo htmlspecialchars($song['album']); ?>" required><br><br>
+                settingBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
 
-        <label>Genre:</label><br>
-        <input type="text" name="genre" value="<?php echo htmlspecialchars($song['genre']); ?>" required><br><br>
+                closeBtn.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                });
+            </script>
 
-        <label>Release Year:</label><br>
-        <input type="number" name="release_year" value="<?php echo htmlspecialchars($song['release_year']); ?>" required><br><br>
+            <div class="logo">
+                <img src="../Assets/image/LogoPlaytopia1.png">
+            </div>
 
-        <label>Duration:</label><br>
-        <input type="text" name="duration" value="<?php echo htmlspecialchars($song['duration']); ?>" required><br><br>
+            <nav class="nav-links">
+                <a href="../Admin/AllTabel.php"><b>Table</b></a>
+                <a href="../LoginRegister/Logout.php"><b>Logout</b></a>
+            </nav>
+        </header>
 
-        <label>File Lagu (MP3):</label><br>
-        <input type="file" name="file_path"><br>
-        <small>File sebelumnya: <?php echo htmlspecialchars($song['file_path']); ?></small><br><br>
-        <input type="hidden" name="old_file_path" value="<?php echo htmlspecialchars($song['file_path']); ?>">
+        <h1>Edit Song</h1>
+        <div class="form-container">
+        <form action="" method="post" enctype="multipart/form-data">
+            <label>Title:</label><br>
+            <input type="text" name="title" value="<?php echo htmlspecialchars($song['title']); ?>" required><br><br>
 
-        <label>Cover (Gambar):</label><br>
-        <input type="file" name="cover_path"><br>
-        <small>File sebelumnya: <?php echo htmlspecialchars($song['cover_path']); ?></small><br><br>
-        <input type="hidden" name="old_cover_path" value="<?php echo htmlspecialchars($song['cover_path']); ?>">
+            <label>Artist:</label><br>
+            <input type="text" name="artist" value="<?php echo htmlspecialchars($song['artist']); ?>" required><br><br>
 
-        <label>Plays:</label><br>
-        <input type="number" name="plays" value="<?php echo htmlspecialchars($song['plays']); ?>" required><br><br>
+            <label>Album:</label><br>
+            <input type="text" name="album" value="<?php echo htmlspecialchars($song['album']); ?>" required><br><br>
 
-        <input type="submit" value="Update Song">
-    </form>
+            <label>Genre:</label><br>
+            <input type="text" name="genre" value="<?php echo htmlspecialchars($song['genre']); ?>" required><br><br>
+
+            <label>Release Year:</label><br>
+            <input type="number" name="release_year" value="<?php echo htmlspecialchars($song['release_year']); ?>" required><br><br>
+
+            <label>Duration:</label><br>
+            <input type="text" name="duration" value="<?php echo htmlspecialchars($song['duration']); ?>" required><br><br>
+
+            <label>File Lagu (MP3):</label><br>
+            <input type="file" name="file_path"><br>
+            <small>File sebelumnya: <?php echo htmlspecialchars($song['file_path']); ?></small><br><br>
+            <input type="hidden" name="old_file_path" value="<?php echo htmlspecialchars($song['file_path']); ?>">
+
+            <label>Cover (Gambar):</label><br>
+            <input type="file" name="cover_path"><br>
+            <small>File sebelumnya: <?php echo htmlspecialchars($song['cover_path']); ?></small><br><br>
+            <input type="hidden" name="old_cover_path" value="<?php echo htmlspecialchars($song['cover_path']); ?>">
+
+            <label>Plays:</label><br>
+            <input type="number" name="plays" value="<?php echo htmlspecialchars($song['plays']); ?>" required><br><br>
+
+            <input type="submit" value="Update Song">
+        </form>
+    </div>
 </body>
 </html>

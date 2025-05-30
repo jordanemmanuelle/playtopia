@@ -1,0 +1,103 @@
+/* editSong.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: white;
+}
+
+/* Container utama form */
+.form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #202020;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Judul halaman */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2em;
+    color: #cbae6d;
+}
+
+/* Label form */
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+/* Input teks, angka, file */
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    padding: 8px;
+}
+
+/* Tombol submit */
+input[type="submit"] {
+    margin-top: 30px;
+    width: 100%;
+    padding: 12px;
+    background-color: #cbae6d;
+    color: #121212;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #e0c383;
+}
+
+/* Info file lama */
+small {
+    color: #a0a0a0;
+}
+
+/* Tombol kembali */
+.back-button {
+    text-decoration: none;
+    color: #cbae6d;
+    background-color: #2a2a2a;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #3a3a3a;
+    color: white;
+}
+
+/* Responsive untuk layar kecil */
+@media (max-width: 600px) {
+    .form-container {
+        margin: 30px 15px;
+        padding: 20px;
+    }
+}
