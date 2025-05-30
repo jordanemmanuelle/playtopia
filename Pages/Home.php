@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+include '../auth.php';
 include '../connection.php';
 
 $songQuery = "SELECT * FROM songs LIMIT 4"; // max 4 utk di home

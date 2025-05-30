@@ -1,8 +1,8 @@
 <?php
-session_start();
+include '../auth.php';
 include '../connection.php';
 
-$songQuery = "SELECT * FROM songs LIMIT 4";
+$songQuery = "SELECT * FROM songs";
 $songResult = mysqli_query($connect, $songQuery);
 ?>
 
@@ -29,10 +29,12 @@ $songResult = mysqli_query($connect, $songQuery);
         </div>
         <ul>
             <li><a href="../Pages/Playlist.php">Playlist</a></li>
-            <li><a href="#">Liked Songs</a></li>
+            <li><a href="LikedSongMenu.php">Liked Songs</a></li>
             <li><a href="#">Recently Played</a></li>
             <li><a href="#">Albums</a></li>
             <li><a href="#">Artists</a></li>
+            <li><a href="Profile.php">Profile</a></li>
+            <li><a href="Friends.php">Friends</a></li>
         </ul>
     </div>
 

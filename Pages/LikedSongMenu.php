@@ -1,8 +1,7 @@
 <?php
-session_start();
+include '../auth.php';
 include '../connection.php';
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['id_user'])) {
     echo "<p>❌ Please login to view liked songs.</p>";
     exit();
@@ -10,7 +9,6 @@ if (!isset($_SESSION['id_user'])) {
 
 $idUser = $_SESSION['id_user'];
 
-// Query: ambil lagu yang dilike oleh user
 $query = "
     SELECT s.*
     FROM song_likes sl
