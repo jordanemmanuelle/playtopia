@@ -64,8 +64,8 @@ if ($playlistId) {
             <button class="close-btn">&times;</button>
         </div>
         <ul>
-            <li><a href="../Pages/Playlist.php">Playlist</a></li>
-            <li><a href="LIkedSongMenu.php">Liked Songs</a></li>
+            <li><a href="Playlist.php">Playlist</a></li>
+            <li><a href="LikedSongMenu.php">Liked Songs</a></li>
             <li><a href="#">Recently Played</a></li>
             <li><a href="#">Albums</a></li>
             <li><a href="#">Artists</a></li>

@@ -28,7 +28,7 @@ $songResult = mysqli_query($connect, $songQuery);
             <button class="close-btn">&times;</button>
         </div>
         <ul>
-            <li><a href="../Pages/Playlist.php">Playlist</a></li>
+            <li><a href="Playlist.php">Playlist</a></li>
             <li><a href="LikedSongMenu.php">Liked Songs</a></li>
             <li><a href="#">Recently Played</a></li>
             <li><a href="#">Albums</a></li>
@@ -91,7 +91,6 @@ $songResult = mysqli_query($connect, $songQuery);
         }
         ?>
 
-        <!-- Styled Search Input -->
         <form method="GET" action="Search.php" style="margin-top: 30px;">
             <input 
                 type="text" 
