@@ -188,7 +188,7 @@ if ($playlistId) {
 
                     if (isset($_SESSION['id_user'])) {
                         $userId = $_SESSION['id_user'];
-                        $checkLikeQuery = "SELECT * FROM playlists WHERE id_user = $userId AND id_playlist = $idPlaylist";
+                        $checkLikeQuery = "SELECT * FROM playlist_likes WHERE id_user = $userId AND id_playlist = $idPlaylist";
                         $likeResult = mysqli_query($connect, $checkLikeQuery);
                         if ($likeResult && mysqli_num_rows($likeResult) > 0) {
                             $checked = 'checked';
