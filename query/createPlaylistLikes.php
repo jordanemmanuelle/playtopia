@@ -12,8 +12,8 @@ CREATE TABLE playlist_likes (
 )";
 
 if (mysqli_query($connect, $sql)) {
-    echo "✅ Table 'playlist_likes' created successfully.";
+    echo "Table 'playlist_likes' created successfully.";
 } else {
-    echo "❌ Error creating table 'playlist_likes': " . mysqli_error($connect);
+    echo "Error creating table 'playlist_likes': " . mysqli_error($connect);
 }
 ?>

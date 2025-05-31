@@ -11,8 +11,8 @@ $sql = "CREATE TABLE song_likes (
 )";
 
 if (mysqli_query($connect, $sql)) {
-    echo "✅ Table 'song_likes' created successfully.";
+    echo "Table 'song_likes' created successfully.";
 } else {
-    echo "❌ Error creating table 'song_likes': " . mysqli_error($connect);
+    echo "Error creating table 'song_likes': " . mysqli_error($connect);
 }
 ?>

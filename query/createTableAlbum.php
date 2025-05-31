@@ -11,8 +11,8 @@ $sql = "CREATE TABLE IF NOT EXISTS albums (
 )";
 
 if (mysqli_query($connect, $sql)) {
-    echo "✅ Table 'albums' created successfully.";
+    echo "Table 'albums' created successfully.";
 } else {
-    echo "❌ Error creating table 'albums': " . mysqli_error($connect);
+    echo "Error creating table 'albums': " . mysqli_error($connect);
 }
 ?>
