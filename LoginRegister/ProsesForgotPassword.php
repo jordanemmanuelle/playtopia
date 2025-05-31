@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         $hashed_new_password = md5($new_password);
 
-        // Cek apakah email ada di database
         $checkQuery = "SELECT * FROM users WHERE email = '$email'";
         $result = mysqli_query($connect, $checkQuery);
 
@@ -25,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $user = mysqli_fetch_assoc($result);
             $current_password = $user['password'];
 
-            // Cek apakah password baru sama dengan yang lama
             if ($hashed_new_password === $current_password) {
                 echo ("<script>
                     alert('Password baru tidak boleh sama dengan password lama!');
@@ -34,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 exit();
             }
 
-            // Update password
             $updateQuery = "UPDATE users SET password = '$hashed_new_password' WHERE email = '$email'";
             if (mysqli_query($connect, $updateQuery)) {
                 echo ("<script>
